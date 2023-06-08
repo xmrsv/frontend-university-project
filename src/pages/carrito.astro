@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 
 //imagenes
 import cartIcon from "../assets/cart-big.svg";
-import trashcanIcon from "../assets/trashcan.svg";
 ---
 
 <Layout title="carrito">
@@ -89,7 +88,6 @@ import trashcanIcon from "../assets/trashcan.svg";
                         <th>Precio</th>
                         <th>Cantidad</th>
                         <th>Subtotal</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="txt">
@@ -100,70 +98,47 @@ import trashcanIcon from "../assets/trashcan.svg";
                             <button class="quantity-btn" data-action="decrease"
                                 >▼</button
                             >
-                            <span class="quantity">1</span>
+                            <span class="quantity">0</span>
                             <button class="quantity-btn" data-action="increase"
                                 >▲</button
                             >
                         </td>
-
                         <td class="subtotal">$ 0</td>
-                        <td
-                            ><img
-                                class="trash"
-                                src={trashcanIcon}
-                                alt="Borrar"
-                            /></td
-                        >
                     </tr>
                     <tr>
                         <td>Producto 2</td>
                         <td>$ 100</td>
-                        <td
-                            ><button class="quantity-btn" data-action="decrease"
+                        <td>
+                            <button class="quantity-btn" data-action="decrease"
                                 >▼</button
                             >
-                            <span class="quantity">1</span>
+                            <span class="quantity">0</span>
                             <button class="quantity-btn" data-action="increase"
                                 >▲</button
-                            ></td
-                        >
+                            >
+                        </td>
                         <td class="subtotal">$ 0</td>
-                        <td
-                            ><img
-                                class="trash"
-                                src={trashcanIcon}
-                                alt="Borrar"
-                            /></td
-                        >
                     </tr>
                     <tr>
                         <td>Producto 3</td>
                         <td>$ 100</td>
-                        <td
-                            ><button class="quantity-btn" data-action="decrease"
+                        <td>
+                            <button class="quantity-btn" data-action="decrease"
                                 >▼</button
                             >
-                            <span class="quantity">1</span>
+                            <span class="quantity">0</span>
                             <button class="quantity-btn" data-action="increase"
                                 >▲</button
-                            ></td
-                        >
+                            >
+                        </td>
                         <td class="subtotal">$ 0</td>
-                        <td
-                            ><img
-                                class="trash"
-                                src={trashcanIcon}
-                                alt="Borrar"
-                            /></td
-                        >
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <!--el Total ocupa 3 columnas -->
+                        <!-- el Total ocupa 3 columnas -->
                         <td colspan="3">Total</td>
                         <td id="total">$ 0</td>
-                        <td></td>
                     </tr>
                 </tfoot>
             </table>
@@ -173,23 +148,15 @@ import trashcanIcon from "../assets/trashcan.svg";
         </div>
     </div>
 
-
-
-    <!--Botón eliminar -->
     <script>
-        const trashIcons = document.getElementsByClassName("trash");
-        for (let i = 0; i < trashIcons.length; i++) {
-            trashIcons[i].addEventListener("click", eliminarFila);
-        }
-
         const quantityBtns = document.getElementsByClassName("quantity-btn");
         for (let i = 0; i < quantityBtns.length; i++) {
             quantityBtns[i].addEventListener("click", actualizarCantidad);
         }
 
-        function eliminarFila(event) {
-            const fila = event.target.closest("tr");
-            fila.remove();
+        const trashIcons = document.getElementsByClassName("trash");
+        for (let i = 0; i < trashIcons.length; i++) {
+            trashIcons[i].addEventListener("click", eliminarFila);
         }
 
         function actualizarCantidad(event) {
@@ -203,13 +170,19 @@ import trashcanIcon from "../assets/trashcan.svg";
                 const nuevaCantidad = cantidadActual + 1;
                 spanCantidad.textContent = nuevaCantidad;
             } else if (action === "decrease") {
-                if (cantidadActual > 1) {
+                if (cantidadActual > 0) {
                     const nuevaCantidad = cantidadActual - 1;
                     spanCantidad.textContent = nuevaCantidad;
                 }
             }
 
             recalcularSubtotal(fila);
+        }
+
+        function eliminarFila(event) {
+            const fila = event.target.closest("tr");
+            fila.remove();
+            calcularTotal();
         }
 
         function recalcularSubtotal(fila) {
@@ -241,48 +214,47 @@ import trashcanIcon from "../assets/trashcan.svg";
                 2
             )}`;
         }
-    </script>
 
-        <!--enviar la boleta por whatsapp -->
-        <script>
-            const a = document.getElementById("pagar");
-            const tbody = document.getElementById("txt");
-    
-            a.addEventListener("click", () => {
-                integracionWhatsapp(generarMensaje());
-            });
-    
-            function generarMensaje() {
-                let mensaje = "Boleta de compra:\n\n";
-    
-                // Recorrer las filas de la tabla
-                const filas = tbody.getElementsByTagName("tr");
-                for (let i = 0; i < filas.length; i++) {
-                    const celdas = filas[i].getElementsByTagName("td");
-                    const producto = celdas[0].textContent.trim();
-                    const precio = celdas[1].textContent.trim();
-                    const cantidad = celdas[2].textContent.trim();
-                    const subtotal = celdas[3].textContent.trim();
-    
-                    mensaje += `${producto}\n`;
-                    mensaje += `Precio: ${precio}\n`;
-                    mensaje += `Cantidad: ${cantidad}\n`;
-                    mensaje += `Subtotal: ${subtotal}\n\n`;
-                }
-    
-                const total = document
-                    .querySelector("tfoot td:last-child")
-                    .textContent.trim();
-                mensaje += `Total: ${total}`;
-    
-                return encodeURIComponent(mensaje); // Codificar el mensaje para incluir en la URL
+        const a = document.getElementById("pagar");
+        const tbody = document.getElementById("txt");
+
+        a.addEventListener("click", () => {
+            integracionWhatsapp(generarMensaje());
+        });
+
+        function generarMensaje() {
+            const filas = tbody.getElementsByTagName("tr");
+            let mensaje = "";
+
+            for (let i = 0; i < filas.length; i++) {
+                const producto =
+                    filas[i].querySelector("td:nth-child(1)").textContent;
+                const precio =
+                    filas[i].querySelector("td:nth-child(2)").textContent;
+                const cantidad =
+                    filas[i].querySelector(".quantity").textContent;
+                const subtotal =
+                    filas[i].querySelector(".subtotal").textContent;
+
+                mensaje += `${producto}\n`;
+                mensaje += `Precio: ${precio}\n`;
+                mensaje += `Cantidad: ${cantidad}\n`;
+                mensaje += `Subtotal: ${subtotal}\n\n`;
             }
-    
-            function integracionWhatsapp(mensaje) {
-                window.open(
-                    `https://api.whatsapp.com/send?phone=+51935463517&text=${mensaje}`,
-                    "_blank"
-                );
-            }
-        </script>
+
+            const total = document
+                .querySelector("tfoot td:last-child")
+                .textContent.trim();
+            mensaje += `Total: ${total}`;
+
+            return encodeURIComponent(mensaje); // Codificar el mensaje para incluir en la URL
+        }
+
+        function integracionWhatsapp(mensaje) {
+            window.open(
+                `https://api.whatsapp.com/send?phone=+51935463517&text=${mensaje}`,
+                "_blank"
+            );
+        }
+    </script>
 </Layout>

@@ -1,9 +1,12 @@
 ---
-import facebookIcon from '../assets/facebook-circle-mono.svg'
-import pinterestIcon from '../assets/pinterest-circle-mono.svg'
-import telegramIcon from '../assets/telegram-circle-mono.svg'
-import twitterIcon from '../assets/twitter-circle-mono.svg'
-import instagramIcon from '../assets/instagram-circle-mono.svg'
+import facebookIcon from "../assets/facebook-circle-mono.svg";
+import pinterestIcon from "../assets/pinterest-circle-mono.svg";
+import telegramIcon from "../assets/telegram-circle-mono.svg";
+import twitterIcon from "../assets/twitter-circle-mono.svg";
+import instagramIcon from "../assets/instagram-circle-mono.svg";
+import phoneIcon from "../assets/Call.svg";
+import messageIcon from "../assets/Message.svg";
+import locationIcon from "../assets/Location.svg";
 ---
 
 <style lang="scss">
@@ -13,9 +16,9 @@ import instagramIcon from '../assets/instagram-circle-mono.svg'
     footer {
         color: #fff;
         background-color: colors.$gray;
-        
+
         .container {
-            padding: 40px 0;
+            padding: 20px 0;
             max-width: metrics.$container-max-width;
             margin: auto;
 
@@ -25,6 +28,59 @@ import instagramIcon from '../assets/instagram-circle-mono.svg'
                 justify-content: space-between;
                 margin: auto;
             }
+
+            .main {
+                h3 {
+                    color: colors.$logotype-footer;
+                    font-size: 28px;
+                    font-weight: 600;
+                }
+
+                p {
+                    font-size: 14px;
+                    font-family: "Montserrat", sans-serif;
+                }
+
+                ul {
+                    margin-top: 10px;
+                    list-style: none;
+
+                    li {
+                        display: flex;
+                        margin-bottom: 10px;
+
+                        img {
+                            margin-right: 10px;
+                        }
+
+                        p {
+                            font-size: 16px;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+
+            hr {
+                margin: 20px 0;
+            }
+
+            .copyright {
+                color: colors.$logotype-copyright;
+
+                font-size: 14px;
+
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .terms-privacy {
+                display: flex;
+
+                p:first-child {
+                    margin-right: 10px;
+                }
+            }
         }
     }
 </style>
@@ -32,9 +88,45 @@ import instagramIcon from '../assets/instagram-circle-mono.svg'
 <footer>
     <div class="container">
         <div class="social">
-            <img src={facebookIcon} alt=""><img src={pinterestIcon} alt=""><img src={twitterIcon} alt=""><img src={instagramIcon} alt=""><img src={telegramIcon} alt="">
+            <img src={facebookIcon} alt="" /><img
+                src={pinterestIcon}
+                alt=""
+            /><img src={twitterIcon} alt="" /><img
+                src={instagramIcon}
+                alt=""
+            /><img src={telegramIcon} alt="" />
         </div>
-        <div class="main">main</div>
-        <div class="copyright">copyright</div>
+        <div class="main">
+            <div>
+                <h3>Sachamama</h3>
+                <p>Galletas 100% naturales hechas de Sacha Jergón</p>
+                <ul>
+                    <li>
+                        <img src={messageIcon} alt="phone" />
+                        <p>+00 000 000 000</p>
+                    </li>
+                    <li>
+                        <img src={messageIcon} alt="email" />
+                        <p>sachamama@email.com</p>
+                    </li>
+                    <li>
+                        <img src={locationIcon} alt="pointmap" />
+                        <p>Tarapoto, Perú</p>
+                    </li>
+                </ul>
+            </div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <hr />
+
+        <div class="copyright">
+            <p class="copy">&copy; 2023 Sachamama</p>
+            <div class="terms-privacy">
+                <p>Politica de privacidad</p>
+                <p>Terminos y condiciones</p>
+            </div>
+        </div>
     </div>
 </footer>

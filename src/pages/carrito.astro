@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 
 //imagenes
 import cartIcon from "../assets/cart-big.svg";
+import trashcanIcon from "../assets/trashcan.svg";
 ---
 
 <Layout title="carrito">
@@ -45,24 +46,28 @@ import cartIcon from "../assets/cart-big.svg";
                         font-weight: bold;
                     }
                 }
+                .trash {
+                    width: 30px;
+                    cursor: pointer;
+                }
             }
-            
+
             .pagar {
                 margin: 2rem 0;
                 display: flex;
                 justify-content: flex-end;
-                a{
+                a {
                     text-decoration: none;
                     color: #fff;
                     font-weight: 800;
                     padding: 1rem 2rem;
-                    background-color: #7BAD69;
+                    margin-right: 1rem;
+                    background-color: #7bad69;
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
 
-                    &:hover{
-                        background-color: #5F8F4F;
-
+                    &:hover {
+                        background-color: #5f8f4f;
                     }
                 }
             }
@@ -84,40 +89,200 @@ import cartIcon from "../assets/cart-big.svg";
                         <th>Precio</th>
                         <th>Cantidad</th>
                         <th>Subtotal</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="txt">
                     <tr>
                         <td>Producto 1</td>
                         <td>$ 100</td>
-                        <td>2</td>
-                        <td>$ 200</td>
-                        <td>eliminar</td>
+                        <td>
+                            <button class="quantity-btn" data-action="decrease"
+                                >▼</button
+                            >
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn" data-action="increase"
+                                >▲</button
+                            >
+                        </td>
+
+                        <td class="subtotal">$ 0</td>
+                        <td
+                            ><img
+                                class="trash"
+                                src={trashcanIcon}
+                                alt="Borrar"
+                            /></td
+                        >
                     </tr>
                     <tr>
                         <td>Producto 2</td>
                         <td>$ 100</td>
-                        <td>2</td>
-                        <td>$ 200</td>
+                        <td
+                            ><button class="quantity-btn" data-action="decrease"
+                                >▼</button
+                            >
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn" data-action="increase"
+                                >▲</button
+                            ></td
+                        >
+                        <td class="subtotal">$ 0</td>
+                        <td
+                            ><img
+                                class="trash"
+                                src={trashcanIcon}
+                                alt="Borrar"
+                            /></td
+                        >
                     </tr>
                     <tr>
                         <td>Producto 3</td>
                         <td>$ 100</td>
-                        <td>2</td>
-                        <td>$ 200</td>
+                        <td
+                            ><button class="quantity-btn" data-action="decrease"
+                                >▼</button
+                            >
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn" data-action="increase"
+                                >▲</button
+                            ></td
+                        >
+                        <td class="subtotal">$ 0</td>
+                        <td
+                            ><img
+                                class="trash"
+                                src={trashcanIcon}
+                                alt="Borrar"
+                            /></td
+                        >
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <!--el Total ocupa 3 columnas -->
                         <td colspan="3">Total</td>
-                        <td>$ 600</td>
+                        <td id="total">$ 0</td>
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>
         </div>
         <div class="pagar">
-            <a href="#">Pagar</a>
+            <a id="pagar">Pagar</a>
         </div>
     </div>
+
+
+
+    <!--Botón eliminar -->
+    <script>
+        const trashIcons = document.getElementsByClassName("trash");
+        for (let i = 0; i < trashIcons.length; i++) {
+            trashIcons[i].addEventListener("click", eliminarFila);
+        }
+
+        const quantityBtns = document.getElementsByClassName("quantity-btn");
+        for (let i = 0; i < quantityBtns.length; i++) {
+            quantityBtns[i].addEventListener("click", actualizarCantidad);
+        }
+
+        function eliminarFila(event) {
+            const fila = event.target.closest("tr");
+            fila.remove();
+        }
+
+        function actualizarCantidad(event) {
+            const button = event.target;
+            const fila = button.closest("tr");
+            const spanCantidad = fila.querySelector(".quantity");
+            const cantidadActual = parseInt(spanCantidad.textContent);
+            const action = button.dataset.action;
+
+            if (action === "increase") {
+                const nuevaCantidad = cantidadActual + 1;
+                spanCantidad.textContent = nuevaCantidad;
+            } else if (action === "decrease") {
+                if (cantidadActual > 1) {
+                    const nuevaCantidad = cantidadActual - 1;
+                    spanCantidad.textContent = nuevaCantidad;
+                }
+            }
+
+            recalcularSubtotal(fila);
+        }
+
+        function recalcularSubtotal(fila) {
+            const spanCantidad = fila.querySelector(".quantity");
+            const cantidad = parseInt(spanCantidad.textContent);
+            const precio = parseFloat(
+                fila.querySelector("td:nth-child(2)").textContent.slice(1)
+            );
+            const subtotal = cantidad * precio;
+            fila.querySelector(".subtotal").textContent = `$ ${subtotal.toFixed(
+                2
+            )}`;
+
+            calcularTotal();
+        }
+
+        function calcularTotal() {
+            const filas = document.querySelectorAll("#txt tr");
+            let total = 0;
+
+            for (let i = 0; i < filas.length; i++) {
+                const subtotal = parseFloat(
+                    filas[i].querySelector(".subtotal").textContent.slice(1)
+                );
+                total += subtotal;
+            }
+
+            document.querySelector("#total").textContent = `$ ${total.toFixed(
+                2
+            )}`;
+        }
+    </script>
+
+        <!--enviar la boleta por whatsapp -->
+        <script>
+            const a = document.getElementById("pagar");
+            const tbody = document.getElementById("txt");
+    
+            a.addEventListener("click", () => {
+                integracionWhatsapp(generarMensaje());
+            });
+    
+            function generarMensaje() {
+                let mensaje = "Boleta de compra:\n\n";
+    
+                // Recorrer las filas de la tabla
+                const filas = tbody.getElementsByTagName("tr");
+                for (let i = 0; i < filas.length; i++) {
+                    const celdas = filas[i].getElementsByTagName("td");
+                    const producto = celdas[0].textContent.trim();
+                    const precio = celdas[1].textContent.trim();
+                    const cantidad = celdas[2].textContent.trim();
+                    const subtotal = celdas[3].textContent.trim();
+    
+                    mensaje += `${producto}\n`;
+                    mensaje += `Precio: ${precio}\n`;
+                    mensaje += `Cantidad: ${cantidad}\n`;
+                    mensaje += `Subtotal: ${subtotal}\n\n`;
+                }
+    
+                const total = document
+                    .querySelector("tfoot td:last-child")
+                    .textContent.trim();
+                mensaje += `Total: ${total}`;
+    
+                return encodeURIComponent(mensaje); // Codificar el mensaje para incluir en la URL
+            }
+    
+            function integracionWhatsapp(mensaje) {
+                window.open(
+                    `https://api.whatsapp.com/send?phone=+51935463517&text=${mensaje}`,
+                    "_blank"
+                );
+            }
+        </script>
 </Layout>

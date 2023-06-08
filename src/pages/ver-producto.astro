@@ -1,0 +1,180 @@
+---
+import Layout from "../layouts/Layout.astro";
+import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg";
+---
+
+<Layout title="Ver producto">
+    <style>
+        /* Estilos para el contenedor del encabezado */
+        .container {
+            max-width: 1200px;
+            /* Ancho máximo del contenedor */
+            margin: 0 auto;
+            /* Centrar el contenedor en la página */
+            padding: 0 15px;
+            /* Espaciado interno del contenedor */
+        }
+
+        /* Estilos para el encabezado */
+        .navbar {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 18px;
+        }
+
+        /* Estilos para la sección izquierda del encabezado */
+        .navbar-left {
+            order: 1;
+            /* Cambiar el orden en la disposición flexbox */
+        }
+
+        /* Estilos para la sección derecha del encabezado */
+        .navbar-right {
+            order: 2;
+            /* Cambiar el orden en la disposición flexbox */
+            margin-left: auto;
+        }
+
+        /* Estilos para el enlace de la marca de sachamama */
+        .navbar-brand {
+            color: #7bad69;
+            font-size: 40px; /* Tamaño de letra deseado */
+        }
+
+        /* Estilos para los enlaces de navegación de los menús*/
+        .navbar-nav .nav-link {
+            color: #383838;
+        }
+
+        .custom-icon-color {
+            color: #383838;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #383838;
+        }
+
+        .navbar-nav .nav-link.disabled {
+            color: gray;
+        }
+
+        /* Estilos CSS adicionales */
+        .product-description {
+            margin-top: 0px;
+            text-align: justify;
+        }
+
+        .row {
+            justify-content: flex-start;
+            margin-right: 20px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            /* Tamaño de letra personalizado */
+            color: #383838;
+            /* Color personalizado */
+            margin-top: 30px;
+            margin-block-end: 0px;
+            text-align: center;
+            /* Centra horizontalmente el título */
+            left: 0;
+            right: 0;
+            transform: translate(0, -50%);
+            /* Desplaza el título hacia arriba en un 50% de su propia altura */
+        }
+    </style>
+
+    <!-- Pq -->
+    <!-- Enlaza los estilos de Bootstrap -->
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Enlaza Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <div class="container">
+        <h1 class="product-title">Galletas Sachamama</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <img
+                    src={sachaJergonImg}
+                    alt=""
+                    style="max-width: 400px; height: auto;"
+                />
+            </div>
+            <div class="col-md-6">
+                <p class="product-description">
+                    ¿Qué hace a nuestras galletas tan especiales? El Sacha
+                    Jergón, una planta amazónica llena de propiedades
+                    saludables, es el ingrediente estrella. Estas galletas son
+                    una fuente natural de energía, proporcionándote el impulso
+                    necesario para afrontar tu día.
+                </p>
+
+                <p class="product-description">
+                    Además, el Sacha Jergón contiene antioxidantes poderosos que
+                    ayudan a fortalecer tu sistema inmunológico y proteger tu
+                    cuerpo contra los radicales libres. ¡Una manera deliciosa de
+                    cuidar de ti mismo!
+                </p>
+
+                <p class="product-description">
+                    ¿A qué estás esperando? Prueba nuestras galletas de Sacha
+                    Jergón y déjate cautivar por su sabor único y beneficios
+                    para tu bienestar. ¡Te garantizamos una experiencia
+                    deliciosa y nutritiva en cada bocado!.
+                </p>
+
+                <div class="text-left">
+                    <button class="btn btn-primary">Regresar</button>
+                </div>
+                <div class="col-md">
+                    <div class="text-right mt-0">
+                        <button
+                            class="btn btn-success"
+                            style="background-color: #7BAD69;"
+                            ><i class="fas fa-shopping-cart"></i> Agregar</button
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eliminar plis -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+    ></script>
+    <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    ></script>
+
+    <script>
+        function incrementarCantidad() {
+            document.getElementById("cantidad").stepUp();
+        }
+
+        function decrementarCantidad() {
+            document.getElementById("cantidad").stepDown();
+        }
+
+        function regresar() {
+            // Función para el botón "Regresar"
+            // Agrega el código necesario aquí
+        }
+
+        function agregar() {
+            // Función para el botón "Agregar"
+            // Agrega el código necesario aquí
+        }
+    </script>
+</Layout>

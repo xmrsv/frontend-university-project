@@ -1,43 +1,44 @@
 ---
-import plantaSachaJergon from '../assets/IMAGE.png';
+import plantaSachaJergon from "../assets/IMAGE.png";
 ---
 
 <style lang="scss">
-    @use '../styles/variables/colors';
+    @use "../styles/variables/colors";
+    @use "../styles/variables/metrics";
+
     section {
         margin: 100px auto;
-        max-width: 80%;
+        max-width: metrics.$container-max-width;
         display: flex;
         justify-content: space-between;
 
         .info {
-
             width: 600px;
-    
+
             h2 {
                 font-size: 36px;
                 font-weight: 500;
                 margin-block-end: 30px;
             }
-    
+
             p {
                 font-size: 16px;
                 color: hsla(0, 0%, 0%, 60%);
                 margin-block-end: 30px;
             }
-    
+
             h2 {
                 font-size: 36px;
                 font-weight: 500;
                 margin-block-end: 30px;
             }
-    
+
             p {
                 font-size: 16px;
                 color: hsla(0, 0%, 0%, 60%);
                 margin-block-end: 30px;
             }
-    
+
             a {
                 max-width: fit-content;
                 max-height: fit-content;
@@ -49,18 +50,24 @@ import plantaSachaJergon from '../assets/IMAGE.png';
                 }
             }
         }
-    } 
+    }
 </style>
 <section>
     <div class="info">
         <h2>Galletas de Sacha Jergón</h2>
-        <p>Descubre las Galletas Sacha Jergón, son saludables, delicosas y tienen beneficios a la salud. Elaborado con ingredientes seleccionados y sin aditivos artificiales, estas galletas contienen el poderoso extracto de Sacha Jergón, conocido por estimular el sistema inmunológico, actuar como antiviral y anticancerigeno.</p>
+        <p>
+            Descubre las Galletas Sacha Jergón, son saludables, delicosas y
+            tienen beneficios a la salud. Elaborado con ingredientes
+            seleccionados y sin aditivos artificiales, estas galletas contienen
+            el poderoso extracto de Sacha Jergón, conocido por estimular el
+            sistema inmunológico, actuar como antiviral y anticancerigeno.
+        </p>
         <a href="#">
             <p>Comprar</p>
             <p>&rightarrow;</p>
         </a>
     </div>
     <div class="image">
-        <img src={plantaSachaJergon} alt="sacha jergón">
+        <img src={plantaSachaJergon} alt="sacha jergón" />
     </div>
 </section>

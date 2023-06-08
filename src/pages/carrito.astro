@@ -4,76 +4,120 @@ import Layout from "../layouts/Layout.astro";
 //imagenes
 import cartIcon from "../assets/cart-big.svg";
 ---
+
 <Layout title="carrito">
     <style lang="scss">
-
-        .container{
+        .container {
             width: 80%;
             margin: 0 auto;
-            
-            .titulo{
+
+            .titulo {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 margin: 2rem 0;
+
+                img {
+                    width: 50px;
+                    margin-right: 1rem;
+                }
             }
 
-            .tabla{
-                
+            .tabla {
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    border: 4px solid #d9f0dd;
+
+                    thead {
+                        background-color: #d9f0dd;
+                        color: #2d2d2d;
+                        font-weight: bold;
+                    }
+                    th,
+                    td {
+                        padding: 1rem;
+                        text-align: center;
+                    }
+                    tfoot {
+                        background-color: #d9f0dd;
+                        color: #2d2d2d;
+                        font-weight: bold;
+                    }
+                }
+            }
+            
+            .pagar {
+                margin: 2rem 0;
+                display: flex;
+                justify-content: flex-end;
+                a{
+                    text-decoration: none;
+                    color: #fff;
+                    font-weight: 800;
+                    padding: 1rem 2rem;
+                    background-color: #7BAD69;
+                    border-radius: 2rem;
+                    transition: background-color 200ms ease-in-out;
+
+                    &:hover{
+                        background-color: #5F8F4F;
+
+                    }
+                }
             }
         }
-
     </style>
-
 
     <div class="container">
         <div class="titulo">
-        <img src={cartIcon} alt="">
-        <h1>
-            Carrito
-        </h1>
+            <img src={cartIcon} alt="" />
+            <h1>Carrito</h1>
         </div>
 
-    <!-- Tabla -->
+        <!-- Tabla -->
         <div class="tabla">
-        <table>
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Producto 1</td>
-                    <td>$ 100</td>
-                    <td>2</td>
-                    <td>$ 200</td>
-                </tr>
-                <tr>
-                    <td>Producto 2</td>
-                    <td>$ 100</td>
-                    <td>2</td>
-                    <td>$ 200</td>
-                </tr>
-                <tr>
-                    <td>Producto 3</td>
-                    <td>$ 100</td>
-                    <td>2</td>
-                    <td>$ 200</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <!--el Total ocupa 3 columnas -->
-                    <td colspan="3">Total</td>
-                    <td>$ 600</td>
-                </tr>
-            </tfoot>
-        </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Producto 1</td>
+                        <td>$ 100</td>
+                        <td>2</td>
+                        <td>$ 200</td>
+                        <td>eliminar</td>
+                    </tr>
+                    <tr>
+                        <td>Producto 2</td>
+                        <td>$ 100</td>
+                        <td>2</td>
+                        <td>$ 200</td>
+                    </tr>
+                    <tr>
+                        <td>Producto 3</td>
+                        <td>$ 100</td>
+                        <td>2</td>
+                        <td>$ 200</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <!--el Total ocupa 3 columnas -->
+                        <td colspan="3">Total</td>
+                        <td>$ 600</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="pagar">
+            <a href="#">Pagar</a>
         </div>
     </div>
-
 </Layout>

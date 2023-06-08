@@ -1,6 +1,5 @@
 ---
 import cartIcon from "../assets/cart-icon.svg";
-import searchIcon from "../assets/search-icon.svg";
 ---
 
 <style lang="scss">
@@ -49,23 +48,11 @@ import searchIcon from "../assets/search-icon.svg";
                 display: flex;
                 align-items: center;
 
-                p {
+                a {
                     text-transform: uppercase;
+                    color: colors.$black;
                 }
 
-                .icon-search {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    flex-direction: column;
-                    margin-inline: 0.6rem;
-                    cursor: pointer;
-                    height: 47px;
-
-                    img {
-                        margin-block-end: 8px;
-                    }
-                }
 
                 .icon-cart {
                     display: flex;
@@ -76,11 +63,14 @@ import searchIcon from "../assets/search-icon.svg";
                     cursor: pointer;
                     height: 47px;
 
+                    a {
+                        text-decoration: none;
+                    }
+
                     img {
                         margin-block-end: 5px;
                     }
                 }
-
             }
         }
     }
@@ -105,13 +95,10 @@ import searchIcon from "../assets/search-icon.svg";
         </nav>
 
         <div class="icons">
-            <span class="icon-search">
-                <img src={searchIcon} alt="" />
-                <p>Buscar</p>
-            </span>
+            
             <span class="icon-cart">
                 <img src={cartIcon} alt="" />
-                <p>Carrito</p>
+                <a href="/carrito">Carrito</a>
             </span>
         </div>
     </div>

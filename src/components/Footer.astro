@@ -1,8 +1,40 @@
+---
+import facebookIcon from '../assets/facebook-circle-mono.svg'
+import pinterestIcon from '../assets/pinterest-circle-mono.svg'
+import telegramIcon from '../assets/telegram-circle-mono.svg'
+import twitterIcon from '../assets/twitter-circle-mono.svg'
+import instagramIcon from '../assets/instagram-circle-mono.svg'
+---
+
+<style lang="scss">
+    @use "../styles/variables/colors";
+    @use "../styles/variables/metrics";
+
+    footer {
+        color: #fff;
+        background-color: colors.$gray;
+        
+        .container {
+            padding: 40px 0;
+            max-width: metrics.$container-max-width;
+            margin: auto;
+
+            .social {
+                max-width: 350px;
+                display: flex;
+                justify-content: space-between;
+                margin: auto;
+            }
+        }
+    }
+</style>
+
 <footer>
-    <div>
-        copyright
-    </div>
-    <div>
-        privacy
+    <div class="container">
+        <div class="social">
+            <img src={facebookIcon} alt=""><img src={pinterestIcon} alt=""><img src={twitterIcon} alt=""><img src={instagramIcon} alt=""><img src={telegramIcon} alt="">
+        </div>
+        <div class="main">main</div>
+        <div class="copyright">copyright</div>
     </div>
 </footer>

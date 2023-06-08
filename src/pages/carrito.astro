@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+//imagenes
+import cartIcon from "../assets/cart-big.svg";
+---
+<Layout title="carrito">
+    <style lang="scss">
+
+        .container{
+            width: 80%;
+            margin: 0 auto;
+            
+            .titulo{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 2rem 0;
+            }
+        }
+
+    </style>
+
+
+    <div class="container">
+        <div class="titulo">
+        <img src={cartIcon} alt="">
+        <h1>
+            Carrito
+        </h1>
+        </div>
+
+    <!-- Tabla -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Producto 1</td>
+                    <td>$ 100</td>
+                    <td>2</td>
+                    <td>$ 200</td>
+                </tr>
+                <tr>
+                    <td>Producto 2</td>
+                    <td>$ 100</td>
+                    <td>2</td>
+                    <td>$ 200</td>
+                </tr>
+                <tr>
+                    <td>Producto 3</td>
+                    <td>$ 100</td>
+                    <td>2</td>
+                    <td>$ 200</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <!--el Total ocupa 3 columnas -->
+                    <td colspan="3">Total</td>
+                    <td>$ 600</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</Layout>

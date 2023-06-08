@@ -4,12 +4,13 @@ import cartIcon from "../assets/cart-icon.svg";
 
 <style lang="scss">
     @use "../styles/variables/colors";
+    @use "../styles/variables/metrics";
 
     header {
         height: 80px;
 
         .navigation {
-            width: 80%;
+            width: metrics.$container-max-width;
             margin: auto;
             display: flex;
             height: inherit;

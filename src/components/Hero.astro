@@ -1,0 +1,56 @@
+
+
+<style lang="scss">
+    @use '../styles/variables/colors';
+    section {
+        background-image: url('/fondo_hero.png');
+        background-position: center;
+        background-size: cover;
+
+        display: grid;
+        place-items: center;
+        height: 484px;
+
+        div {
+            h1 {
+                font-size: 36px;
+                font-weight: 500;
+                color: colors.$white;
+                text-transform: uppercase;
+                margin-block-end: 38px;
+            }
+            
+            p {
+                color: colors.$ghost-white;
+                font-size: 16px;
+                text-align: center;
+                margin-block-end: 30px;
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: auto;
+                width: 190px;
+                height: 61px;
+                text-decoration: none;
+                background-color: colors.$primary-color;
+                border-radius: 20px;
+                font-weight: 500;
+                color: colors.$black;
+            }
+        }
+    }
+</style>
+
+<section>
+    <div>
+        <h1>Galletas naturales de la amazonia</h1>
+        <p>
+            Descubre nustras deliciosas galleta de Sacha Jergón <br>
+            Un dulce bocado de la amazonia
+        </p>
+        <a href="#">Comprar</a>
+    </div>
+</section>

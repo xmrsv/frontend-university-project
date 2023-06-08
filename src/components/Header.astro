@@ -1,0 +1,118 @@
+---
+import cartIcon from "../assets/cart-icon.svg";
+import searchIcon from "../assets/search-icon.svg";
+---
+
+<style lang="scss">
+    @use "../styles/variables/colors";
+
+    header {
+        height: 80px;
+
+        .navigation {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            height: inherit;
+            align-items: center;
+            justify-content: space-between;
+
+            .logo {
+                font-size: 24px;
+                font-weight: 500;
+                text-decoration: none;
+                color: colors.$logotype;
+            }
+
+            nav {
+                font-size: 16px;
+                ul {
+                    display: flex;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        margin-inline: 0.6rem;
+
+                        a,
+                        a:visited {
+                            color: colors.$black;
+                            text-transform: uppercase;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+
+            .icons {
+                display: flex;
+                align-items: center;
+
+                p {
+                    text-transform: uppercase;
+                }
+
+                .icon-search {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-direction: column;
+                    margin-inline: 0.6rem;
+                    cursor: pointer;
+                    height: 47px;
+
+                    img {
+                        margin-block-end: 8px;
+                    }
+                }
+
+                .icon-cart {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-direction: column;
+                    margin-inline: 0.6rem;
+                    cursor: pointer;
+                    height: 47px;
+
+                    img {
+                        margin-block-end: 5px;
+                    }
+                }
+
+            }
+        }
+    }
+</style>
+
+<header>
+    <div class="navigation">
+        <a class="logo" href="/">Sachamama</a>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="#">Inicio</a>
+                </li>
+                <li>
+                    <a href="#">Producto</a>
+                </li>
+                <li>
+                    <a href="#">Conocenos</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="icons">
+            <span class="icon-search">
+                <img src={searchIcon} alt="" />
+                <p>Buscar</p>
+            </span>
+            <span class="icon-cart">
+                <img src={cartIcon} alt="" />
+                <p>Carrito</p>
+            </span>
+        </div>
+    </div>
+</header>

@@ -4,177 +4,152 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
 ---
 
 <Layout title="Ver producto">
-    <style>
-        /* Estilos para el contenedor del encabezado */
+    <style lang="scss">
+        @use "../styles/variables/metrics";
+        @use "../styles/variables/colors";
+
         .container {
-            max-width: 1200px;
-            /* Ancho máximo del contenedor */
-            margin: 0 auto;
-            /* Centrar el contenedor en la página */
-            padding: 0 15px;
-            /* Espaciado interno del contenedor */
-        }
+            max-width: metrics.$container-max-width;
+            margin: 4rem auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-column-gap: 1rem;
 
-        /* Estilos para el encabezado */
-        .navbar {
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 18px;
-        }
+            .text {
+                .product-title {
+                    font-weight: 400;
+                    margin-bottom: 1rem;
+                }
 
-        /* Estilos para la sección izquierda del encabezado */
-        .navbar-left {
-            order: 1;
-            /* Cambiar el orden en la disposición flexbox */
-        }
+                .product-price-title {
+                    font-size: 24px;
+                    display: block;
+                    margin-block-end: 1rem;
+                }
 
-        /* Estilos para la sección derecha del encabezado */
-        .navbar-right {
-            order: 2;
-            /* Cambiar el orden en la disposición flexbox */
-            margin-left: auto;
-        }
+                .product-about-title {
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-bottom: 1rem;
+                }
 
-        /* Estilos para el enlace de la marca de sachamama */
-        .navbar-brand {
-            color: #7bad69;
-            font-size: 40px; /* Tamaño de letra deseado */
-        }
+                .product-about-description {
+                    p {
+                        margin-block-end: 1rem;
+                    }
+                }
 
-        /* Estilos para los enlaces de navegación de los menús*/
-        .navbar-nav .nav-link {
-            color: #383838;
-        }
+                .buttons {
 
-        .custom-icon-color {
-            color: #383838;
-        }
+                    display: flex;
+                    max-width: fit-content;
+                    gap: 1rem; 
 
-        .navbar-nav .nav-link.active {
-            color: #383838;
-        }
+                    .button.button-add-cart {
+                        display: block;
+                        padding: 1rem;
+                        max-width: fit-content;
+                        margin: auto;
+                        text-decoration: none;
+                        background-color: colors.$primary-color;
+                        color: colors.$black;
+                        font-weight: 500;
+                        border-radius: 10px;
+                    }
 
-        .navbar-nav .nav-link.disabled {
-            color: gray;
-        }
+                    .button.button-buy-now {
+                        display: block;
+                        padding: 1rem;
+                        max-width: fit-content;
+                        margin: auto;
+                        text-decoration: none;
+                        background-color: colors.$primary-color;
+                        color: colors.$black;
+                        font-weight: 500;
+                        border-radius: 10px;
+                    }
+                }
+            }
 
-        /* Estilos CSS adicionales */
-        .product-description {
-            margin-top: 0px;
-            text-align: justify;
-        }
+            aside {
+                border: 2px solid #20202050;
+                border-radius: 0.5rem;
+                padding: 1.5rem;
+                height: fit-content;
 
-        .row {
-            justify-content: flex-start;
-            margin-right: 20px;
-        }
+                .aside-status-title {
+                    font-size: 18px;
+                    font-weight: 500;
+                    margin-block-end: 1.2rem;
+                }
 
-        .product-title {
-            font-size: 24px;
-            /* Tamaño de letra personalizado */
-            color: #383838;
-            /* Color personalizado */
-            margin-top: 30px;
-            margin-block-end: 0px;
-            text-align: center;
-            /* Centra horizontalmente el título */
-            left: 0;
-            right: 0;
-            transform: translate(0, -50%);
-            /* Desplaza el título hacia arriba en un 50% de su propia altura */
+                .aside-description {
+                    p {
+                        margin-block-end: 1rem;
+                    }
+                }
+
+                .aside-buy-link {
+                    display: block;
+                    padding: 1rem;
+                    max-width: fit-content;
+                    margin: auto;
+                    text-decoration: none;
+                    background-color: colors.$primary-color;
+                    color: colors.$black;
+                    font-weight: 500;
+                    border-radius: 10px;
+                }
+            }
         }
     </style>
 
-    <!-- Pq -->
-    <!-- Enlaza los estilos de Bootstrap -->
-    <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <!-- Enlaza Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-
     <div class="container">
-        <h1 class="product-title">Galletas Sachamama</h1>
+        <img src={sachaJergonImg} alt="Galletas de Sacha Jergon" />
 
-        <div class="row">
-            <div class="col-md-4">
-                <img
-                    src={sachaJergonImg}
-                    alt=""
-                    style="max-width: 400px; height: auto;"
-                />
-            </div>
-            <div class="col-md-6">
-                <p class="product-description">
+        <div class="text">
+            <h1 class="product-title">Galletas Sacha Jergón</h1>
+
+            <span class="product-price-title">s/. 9.99</span>
+
+            <h2 class="product-about-title">Sobre este artículo</h2>
+
+            <section class="product-about-description">
+                <p>
                     ¿Qué hace a nuestras galletas tan especiales? El Sacha
                     Jergón, una planta amazónica llena de propiedades
                     saludables, es el ingrediente estrella. Estas galletas son
                     una fuente natural de energía, proporcionándote el impulso
                     necesario para afrontar tu día.
                 </p>
-
-                <p class="product-description">
+                <p>
                     Además, el Sacha Jergón contiene antioxidantes poderosos que
                     ayudan a fortalecer tu sistema inmunológico y proteger tu
                     cuerpo contra los radicales libres. ¡Una manera deliciosa de
                     cuidar de ti mismo!
                 </p>
+            </section>
 
-                <p class="product-description">
-                    ¿A qué estás esperando? Prueba nuestras galletas de Sacha
-                    Jergón y déjate cautivar por su sabor único y beneficios
-                    para tu bienestar. ¡Te garantizamos una experiencia
-                    deliciosa y nutritiva en cada bocado!.
-                </p>
+            <div class="buttons">
+                <a class="button button-add-cart" href="#">
+                    Agregar al carrito
+                </a>
 
-                <div class="text-left">
-                    <button class="btn btn-primary">Regresar</button>
-                </div>
-                <div class="col-md">
-                    <div class="text-right mt-0">
-                        <button
-                            class="btn btn-success"
-                            style="background-color: #7BAD69;"
-                            ><i class="fas fa-shopping-cart"></i> Agregar</button
-                        >
-                    </div>
-                </div>
+                <a class="button button-buy-now" href="#">Comprar ahora</a>
             </div>
         </div>
+
+        <aside>
+            <h3 class="aside-status-title">Estado: En stock</h3>
+
+            <section class="aside-description">
+                <p>
+                    Enviós a todas las partes del Perú. Los envíos locales son
+                    gratuitos.
+                </p>
+            </section>
+
+            <a class="aside-buy-link" href="#">Comprar ahora</a>
+        </aside>
     </div>
-
-    <!-- Eliminar plis -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
-    ></script>
-    <script
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    ></script>
-
-    <script>
-        function incrementarCantidad() {
-            document.getElementById("cantidad").stepUp();
-        }
-
-        function decrementarCantidad() {
-            document.getElementById("cantidad").stepDown();
-        }
-
-        function regresar() {
-            // Función para el botón "Regresar"
-            // Agrega el código necesario aquí
-        }
-
-        function agregar() {
-            // Función para el botón "Agregar"
-            // Agrega el código necesario aquí
-        }
-    </script>
 </Layout>

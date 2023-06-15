@@ -17,6 +17,10 @@ import cartIcon from "../assets/cart-icon.svg";
             align-items: center;
             justify-content: space-between;
 
+            .hamburguer-menu {
+                display: none;
+            }
+
             .logo {
                 font-size: 24px;
                 font-weight: 500;
@@ -54,7 +58,6 @@ import cartIcon from "../assets/cart-icon.svg";
                     color: colors.$black;
                 }
 
-
                 .icon-cart {
                     display: flex;
                     align-items: center;
@@ -71,6 +74,23 @@ import cartIcon from "../assets/cart-icon.svg";
                     img {
                         margin-block-end: 5px;
                     }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        header {
+            overflow-x: hidden;
+
+            .navigation {
+                nav {
+                    display: none;
+                }
+
+                .hamburguer-menu {
+                    justify-self: flex-end;
+                    display: block;
                 }
             }
         }
@@ -95,8 +115,11 @@ import cartIcon from "../assets/cart-icon.svg";
             </ul>
         </nav>
 
+        <div class="hamburguer-menu">
+            <a href="#">Menu hamburguesa</a>
+        </div>
+
         <div class="icons">
-            
             <span class="icon-cart">
                 <img src={cartIcon} alt="" />
                 <a href="/carrito">Carrito</a>

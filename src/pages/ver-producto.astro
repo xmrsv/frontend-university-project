@@ -1,5 +1,8 @@
 ---
+// Layout
 import Layout from "../layouts/Layout.astro";
+
+// Assets
 import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg";
 ---
 
@@ -40,33 +43,16 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
                 }
 
                 .buttons {
-
                     display: flex;
                     max-width: fit-content;
-                    gap: 1rem; 
+                    gap: 1rem;
 
-                    .button.button-add-cart {
-                        display: block;
-                        padding: 1rem;
-                        max-width: fit-content;
-                        margin: auto;
-                        text-decoration: none;
-                        background-color: colors.$primary-color;
-                        color: colors.$black;
-                        font-weight: 500;
-                        border-radius: 10px;
-                    }
-
-                    .button.button-buy-now {
-                        display: block;
-                        padding: 1rem;
-                        max-width: fit-content;
-                        margin: auto;
-                        text-decoration: none;
-                        background-color: colors.$primary-color;
-                        color: colors.$black;
-                        font-weight: 500;
-                        border-radius: 10px;
+                    .add-button {
+                        cursor: pointer;
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        background-color: colors.$color-100;
+                        color: colors.$white;
                     }
                 }
             }
@@ -83,22 +69,75 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
                     margin-block-end: 1.2rem;
                 }
 
-                .aside-description {
-                    p {
-                        margin-block-end: 1rem;
+                .aside-buy-link {
+                    margin: auto;
+                }
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            background-color: hsla(0, 0%, 0%, 0.5);
+
+            &.visible {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .content {
+                border-radius: 0.5rem;
+                background-color: white;
+                max-width: 60ch;
+                padding: 2rem;
+
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 1rem;
+
+                    .modal-close {
+                        cursor: pointer;
+                        display: block;
+                        text-align: right;
                     }
                 }
 
-                .aside-buy-link {
-                    display: block;
-                    padding: 1rem;
-                    max-width: fit-content;
-                    margin: auto;
-                    text-decoration: none;
-                    background-color: colors.$primary-color;
-                    color: colors.$black;
-                    font-weight: 500;
-                    border-radius: 10px;
+                form {
+                    display: flex;
+                    flex-direction: column;
+
+                    & > * {
+                        margin-bottom: 1rem;
+                    }
+
+                    input[type="number"],
+                    input[type="number"]:focus,
+                    input[type="number"]:focus-visible {
+                        padding: 0.5rem 1rem;
+                        border: none;
+                        border-radius: 0.3rem;
+                        font-family: monospace;
+                        font-size: 1rem;
+                        background-color: hsla(0, 0%, 0%, 0.1);
+                    }
+
+                    button {
+                        padding: 0.5rem 1rem;
+                        border: none;
+                        font-family: inherit;
+                        border-radius: 0.3rem;
+                        background-color: colors.$logotype;
+                        color: colors.$white;
+                        margin-bottom: 0;
+                        font-weight: 600;
+                    }
                 }
             }
         }
@@ -131,11 +170,9 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
             </section>
 
             <div class="buttons">
-                <a class="button button-add-cart" href="#">
+                <span class="add-button" id="open-modal">
                     Agregar al carrito
-                </a>
-
-                <a class="button button-buy-now" href="#">Comprar ahora</a>
+                </span>
             </div>
         </div>
 
@@ -148,8 +185,96 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
                     gratuitos.
                 </p>
             </section>
-
-            <a class="aside-buy-link" href="#">Comprar ahora</a>
         </aside>
     </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="content">
+            <div class="header">
+                <h3>Antes de proceder...</h3>
+
+                <span
+                    role="button"
+                    id="close-modal"
+                    class="modal-close material-symbols-outlined"
+                >
+                    close</span
+                >
+            </div>
+            <form>
+                <label for="cantidad"
+                    >¿Cuantas galletas deseas comprar? (Máximo de 10)</label
+                >
+                <input type="number" name="cantidad" id="amount" max="10" value="1" />
+                <p>Total: s/. <span id="amount-selected">0</span></p>
+                <button id="add-to-cart">Agregar</button>
+            </form>
+        </div>
+    </div>
 </Layout>
+
+<script>
+    import { addLocalStorage } from "../utils/localStorage.js";
+
+    const modal = document.getElementById("modal");
+    const openModal = document.getElementById("open-modal");
+    const closeModal = document.getElementById("close-modal");
+    const amount = document.getElementById("amount");
+    const amountSelected: any = document.getElementById("amount-selected");
+    const addToCart = document.getElementById("add-to-cart");
+    const form = document.querySelector("form");
+
+    // Prevent default behaviour
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+    });
+
+    // Abre el modal
+    openModal.addEventListener("click", (e) => {
+        modal.classList.add("visible");
+    });
+
+    // Cierra el modal
+    closeModal.addEventListener("click", (e) => {
+        modal.classList.remove("visible");
+    });
+
+    // Cierra el modal al hacer click fuera de el
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.remove("visible");
+        }
+    });
+
+    // Actualiza el total de galletas seleccionadas
+    amount.addEventListener("input", (e) => {
+        amountSelected.textContent = e.target.value * 9.99;
+    });
+
+    // Agrega el producto al carrito
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const product = {
+            name: "Galletas Sacha Jergón",
+            price: 9.99,
+        };
+
+        // Max amount is 10
+        if (amount.value > 10 || amount.value < 1) {
+            return;
+        }
+
+        for (let i = 0; i < amount.value; i++) {
+            addLocalStorage("Carrito", product);
+        }
+
+        // Change the button text to "Agregado"
+        addToCart.textContent = "Agregado";
+
+        setTimeout(() => {
+            modal.classList.remove("visible");
+        }, 3000);
+    });
+</script>

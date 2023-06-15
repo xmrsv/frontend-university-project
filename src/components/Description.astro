@@ -12,10 +12,10 @@ import plantaSachaJergon from "../assets/IMAGE.png";
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 2rem;
 
         .info {
-            width: 600px;
-
+            width: fit-content;
 
             h2 {
                 font-size: 40px;
@@ -29,14 +29,88 @@ import plantaSachaJergon from "../assets/IMAGE.png";
                 margin-block-end: 30px;
             }
 
-            a {
+            .buy-button {
                 max-width: fit-content;
-                max-height: fit-content;
+                height: 30px;
+                color: colors.$black;
                 display: flex;
+                align-items: center;
                 text-decoration: none;
+                transition: transform 200ms ease-in-out,
+                    border-bottom 200ms ease-in-out;
 
-                p:first-child {
-                    margin-right: 10px;
+                border-bottom: 0.4rem solid transparent;
+
+                &:hover {
+                    transform: translateX(10px);
+                    border-bottom: 0.4rem solid colors.$logotype;
+                }
+
+                p {
+                    font-weight: 600;
+                    margin: 0;
+
+                    &:first-child {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1000px) {
+        section {
+            flex-direction: column;
+
+            .info {
+                width: fit-content;
+
+                h2 {
+                    font-size: 40px;
+                    font-weight: 500;
+                    margin-block-end: 30px;
+                }
+
+                p {
+                    font-size: 20px;
+                    color: hsla(0, 0%, 0%, 60%);
+                    margin-block-end: 30px;
+                }
+
+                .buy-button {
+                    margin: auto;
+                    max-width: fit-content;
+                    height: 30px;
+                    color: colors.$black;
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                    transition:
+                        border-bottom 200ms ease-in-out;
+
+                    border-bottom: 0.4rem solid transparent;
+                    margin-bottom: 2rem;
+
+                    &:hover {
+                    transform: translateX(0);
+                        
+                        border-bottom: 0.4rem solid colors.$logotype;
+                    }
+
+                    p {
+                        font-weight: 600;
+                        margin: 0;
+
+                        &:first-child {
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+
+            .image {
+                img {
+                    width: 100%;
                 }
             }
         }
@@ -52,9 +126,9 @@ import plantaSachaJergon from "../assets/IMAGE.png";
             el poderoso extracto de Sacha Jergón, conocido por estimular el
             sistema inmunológico, actuar como antiviral y anticancerigeno.
         </p>
-        <a href="#">
+        <a class="buy-button" href="/ver-producto">
             <p>Comprar</p>
-            <p>&rightarrow;</p>
+            <span class="material-symbols-outlined"> arrow_forward</span>
         </a>
     </div>
     <div class="image">

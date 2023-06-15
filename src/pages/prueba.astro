@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+
+<Layout title="Carrito de prueba">
+    <div id="app"></div>
+</Layout>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
+<script>
+    let qrCode = new QRCode("app", "https://sachamama.netlify.app/");
+</script>

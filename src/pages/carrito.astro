@@ -10,6 +10,7 @@ import cartIcon from "../assets/cart-big.svg";
         .container {
             width: 80%;
             margin: 0 auto;
+            text-align: center;
 
             .titulo {
                 display: flex;
@@ -32,35 +33,38 @@ import cartIcon from "../assets/cart-big.svg";
                     thead {
                         background-color: #d9f0dd;
                         color: #2d2d2d;
-                        font-weight: bold;
+                        font-weight: 800;
                     }
                     th,
                     td {
                         padding: 1rem;
                         text-align: center;
                     }
+
                     tfoot {
                         background-color: #d9f0dd;
                         color: #2d2d2d;
-                        font-weight: bold;
+                        font-weight: 800;
                     }
                 }
-                .trash {
-                    width: 30px;
-                    cursor: pointer;
+
+                td {
+                    padding: 2rem;
                 }
             }
 
-            .pagar {
+            .buttons {
+                
                 margin: 2rem 0;
                 display: flex;
                 justify-content: flex-end;
-                a {
+
+                .pagar {
+                    display: block;
                     text-decoration: none;
                     color: #fff;
                     font-weight: 800;
                     padding: 1rem 2rem;
-                    margin-right: 1rem;
                     background-color: #7bad69;
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
@@ -69,10 +73,26 @@ import cartIcon from "../assets/cart-big.svg";
                         background-color: #5f8f4f;
                     }
                 }
-            }
 
-            .quantity-btn{
-                cursor: pointer;
+                .delete-products {
+                    display: block;
+                    text-decoration: none;
+                    color: #fff;
+                    font-weight: 800;
+                    padding: 1rem 2rem;
+                    margin-right: 1rem;
+                    background-color: #f2224c;
+                    border-radius: 2rem;
+                    transition: background-color 200ms ease-in-out;
+
+                    &:hover {
+                        background-color: #d61e43;
+                    }
+                }
+
+                .quantity-btn {
+                    cursor: pointer;
+                }
             }
         }
     </style>
@@ -90,175 +110,80 @@ import cartIcon from "../assets/cart-big.svg";
                     <tr>
                         <th>Producto</th>
                         <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
                     </tr>
                 </thead>
-                <tbody id="txt">
-                    <tr>
-                        <td>Producto 1</td>
-                        <td>$ 100</td>
-                        <td>
-                            <span class="quantity-btn" data-action="decrease"
-                                >&#10096</span
-                            >
-                            <span class="quantity">0</span>
-                            <span class="quantity-btn" data-action="increase"
-                                >&#10097</span
-                            >
-                        </td>
-                        <td class="subtotal">$ 0.00</td>
-                    </tr>
-                    <tr>
-                        <td>Producto 2</td>
-                        <td>$ 100</td>
-                        <td>
-                            <span class="quantity-btn" data-action="decrease"
-                                >&#10096</span
-                            >
-                            <span class="quantity">0</span>
-                            <span class="quantity-btn" data-action="increase"
-                                >&#10097</span
-                            >
-                        </td>
-                        <td class="subtotal">$ 0.00</td>
-                    </tr>
-                    <tr>
-                        <td>Producto 3</td>
-                        <td>$ 100</td>
-                        <td>
-                            <span class="quantity-btn" data-action="decrease"
-                                >&#10096</span
-                            >
-                            <span class="quantity">0</span>
-                            <span class="quantity-btn" data-action="increase"
-                                >&#10097</span
-                            >
-                        </td>
-                        <td class="subtotal">$ 0.00</td>
-                    </tr>
+
+                <tbody id="table">
+                    <!-- Rows and columns -->
                 </tbody>
+
                 <tfoot>
                     <tr>
-                        <!-- el Total ocupa 3 columnas -->
-                        <td colspan="3">Total</td>
+                        <td>Total</td>
                         <td id="total">$ 0</td>
                     </tr>
                 </tfoot>
             </table>
         </div>
-        <div class="pagar">
-            <a id="pagar">Pagar</a>
+        <div class="buttons">
+            <span class="delete-products" id="delete-productos">Eliminar productos</span>
+            <span class="pagar" id="pagar">Pagar</span>
         </div>
     </div>
 
     <script>
-        const quantityBtns = document.getElementsByClassName("quantity-btn");
-        for (let i = 0; i < quantityBtns.length; i++) {
-            quantityBtns[i].addEventListener("click", actualizarCantidad);
+        import { sendWhatsapp } from "../utils/integrations.js";
+        import { getLocalStorage } from "../utils/localStorage.js";
+
+        const table = document.getElementById("table");
+        const botonPagar = document.getElementById("pagar");
+        const addItem = document.getElementById("agregar");
+        const total = document.getElementById("total");
+        const price = document.getElementById("price");
+        const deleteProductos = document.getElementById("delete-productos");
+
+        // Get cart items from local storage
+        const cartItem = getLocalStorage("Carrito");
+
+        // Generate rows and columns
+        for (let i = 0; i < cartItem.length; i++) {
+            table.innerHTML += `
+                <tr>
+                    <td>${cartItem[i].name}</td>
+                    <td id="price">${cartItem[i].price}</td>
+                </tr>
+            `;
         }
 
-        const trashIcons = document.getElementsByClassName("trash");
-        for (let i = 0; i < trashIcons.length; i++) {
-            trashIcons[i].addEventListener("click", eliminarFila);
-        }
-
-        function actualizarCantidad(event) {
-            const button = event.target;
-            const fila = button.closest("tr");
-            const spanCantidad = fila.querySelector(".quantity");
-            const cantidadActual = parseInt(spanCantidad.textContent);
-            const action = button.dataset.action;
-
-            if (action === "increase") {
-                const nuevaCantidad = cantidadActual + 1;
-                spanCantidad.textContent = nuevaCantidad;
-            } else if (action === "decrease") {
-                if (cantidadActual > 0) {
-                    const nuevaCantidad = cantidadActual - 1;
-                    spanCantidad.textContent = nuevaCantidad;
-                }
-            }
-
-            recalcularSubtotal(fila);
-        }
-
-        function eliminarFila(event) {
-            const fila = event.target.closest("tr");
-            fila.remove();
-            calcularTotal();
-        }
-
-        function recalcularSubtotal(fila) {
-            const spanCantidad = fila.querySelector(".quantity");
-            const cantidad = parseInt(spanCantidad.textContent);
-            const precio = parseFloat(
-                fila.querySelector("td:nth-child(2)").textContent.slice(1)
-            );
-            const subtotal = cantidad * precio;
-            fila.querySelector(".subtotal").textContent = `$ ${subtotal.toFixed(
-                2
-            )}`;
-
-            calcularTotal();
-        }
-
-        function calcularTotal() {
-            const filas = document.querySelectorAll("#txt tr");
-            let total = 0;
-
-            for (let i = 0; i < filas.length; i++) {
-                const subtotal = parseFloat(
-                    filas[i].querySelector(".subtotal").textContent.slice(1)
-                );
-                total += subtotal;
-            }
-
-            document.querySelector("#total").textContent = `$ ${total.toFixed(
-                2
-            )}`;
-        }
-
-        const a = document.getElementById("pagar");
-        const tbody = document.getElementById("txt");
-
-        a.addEventListener("click", () => {
-            integracionWhatsapp(generarMensaje());
+        // Update total value in base of the generated by js tr td, the td of price have an id of price
+        const prices = document.querySelectorAll("#price");
+        let totalValue = 0;
+        prices.forEach((price) => {
+            totalValue += Number(price.textContent);
         });
 
-        function generarMensaje() {
-            const filas = tbody.getElementsByTagName("tr");
-            let mensaje = "";
+        // Update total value
+        total.textContent = `s/. ${totalValue}`;
 
-            for (let i = 0; i < filas.length; i++) {
-                const producto =
-                    filas[i].querySelector("td:nth-child(1)").textContent;
-                const precio =
-                    filas[i].querySelector("td:nth-child(2)").textContent;
-                const cantidad =
-                    filas[i].querySelector(".quantity").textContent;
-                const subtotal =
-                    filas[i].querySelector(".subtotal").textContent;
-
-                mensaje += `${producto}\n`;
-                mensaje += `Precio: ${precio}\n`;
-                mensaje += `Cantidad: ${cantidad}\n`;
-                mensaje += `Subtotal: ${subtotal}\n\n`;
-            }
-
-            const total = document
-                .querySelector("tfoot td:last-child")
-                .textContent.trim();
-            mensaje += `Total: ${total}`;
-
-            return encodeURIComponent(mensaje); // Codificar el mensaje para incluir en la URL
-        }
-
-        function integracionWhatsapp(mensaje) {
-            window.open(
-                `https://api.whatsapp.com/send?phone=+51935463517&text=${mensaje}`,
-                "_blank"
+        // Send whatsapp message
+        botonPagar.addEventListener("click", () => {
+            sendWhatsapp(
+                "51935463517",
+                `
+                Hola, quiero comprar los siguientes productos:
+                ${cartItem.map((item) => {
+                    return `${item.name} - s/. ${item.price}`;
+                })}
+                Total: s/. 1${totalValue}
+            `
             );
-        }
+        });
+
+        // Delete products
+        deleteProductos.addEventListener("click", () => {
+            localStorage.removeItem("Carrito");
+            location.reload();
+        });
+
     </script>
 </Layout>

@@ -8,8 +8,8 @@ const { link, className } = Astro.props;
 ---
 
 <style lang="scss">
-    @use "../../styles/variables/_colors.scss"; 
-    
+    @use "../../styles/variables/_colors.scss";
+
     a {
         display: block;
         padding: 1rem;
@@ -29,8 +29,8 @@ const { link, className } = Astro.props;
 <script>
     let link = document.getElementsByTagName("a").item(0);
 
-link.addEventListener("click", () => {
-    localStorage.setItem("Carrito", "galleta-sacha-jergon");
-    console.log("carrito enviado :DDDD");c
-})
+    link.addEventListener("click", () => {
+        localStorage.setItem("Carrito", "galleta-sacha-jergon");
+        console.log("carrito enviado :DDDD");
+    });
 </script>

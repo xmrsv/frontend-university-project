@@ -10,7 +10,8 @@ interface Props {
     title: string;
 }
 
-const { title } = Astro.props;
+// Titulo por defecto: Sachamama
+const { title = "Sachamama" } = Astro.props;
 ---
 
 <!DOCTYPE html>

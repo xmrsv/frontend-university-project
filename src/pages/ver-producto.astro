@@ -228,15 +228,30 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
 
     // Declarativo debido a Typescript -_-'
     // HTMLInputElement y HTMLFormElement es un tipo de dato de Typescript, lo use debido a que daba errores al usar el método value y otros.
-    const modal = document.getElementById("modal") as HTMLInputElement;
-    const openModal = document.getElementById("open-modal") as HTMLInputElement;
-    const closeModal = document.getElementById("close-modal") as HTMLInputElement;
-    const amount = document.getElementById("amount") as HTMLInputElement;
-    const amountSelected = document.getElementById("amount-selected") as HTMLInputElement;
-    const addToCart = document.getElementById("add-to-cart") as HTMLInputElement;
-    const form = document.querySelector("form") as HTMLFormElement;
-    
-    const amountInput = document.getElementById("amount") as HTMLInputElement;
+    const modal: HTMLInputElement = document.getElementById(
+        "modal"
+    ) as HTMLInputElement;
+    const openModal: HTMLInputElement = document.getElementById(
+        "open-modal"
+    ) as HTMLInputElement;
+    const closeModal: HTMLInputElement = document.getElementById(
+        "close-modal"
+    ) as HTMLInputElement;
+    const amount: HTMLInputElement = document.getElementById(
+        "amount"
+    ) as HTMLInputElement;
+    const amountSelected: HTMLInputElement = document.getElementById(
+        "amount-selected"
+    ) as HTMLInputElement;
+    const addToCart: HTMLInputElement = document.getElementById(
+        "add-to-cart"
+    ) as HTMLInputElement;
+    const form: HTMLFormElement = document.querySelector(
+        "form"
+    ) as HTMLFormElement;
+    const amountInput: HTMLInputElement = document.getElementById(
+        "amount"
+    ) as HTMLInputElement;
     // De tipo entero, ya que no puede haber medio pedido, por ejemplo: 1.5 galletas, 2.5 galletas, etc. Ya me imagino a la gente pidiendo medio pedido de galletas...
     const amountValue = parseInt(amountInput.value);
 
@@ -265,7 +280,7 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
     // Actualiza el total de galletas seleccionadas
     amount.addEventListener("input", (e: Event) => {
         // necesita ser tratado como HTMLInputElement para evitar errores de Typescript
-        const target = e.target as HTMLInputElement;
+        const target: HTMLInputElement = e.target as HTMLInputElement;
         // target.value es de tipo string, por lo que necesita ser convertido a número, pero tambien amountSelected.textContent es de tipo string, por lo que la operacion tiene que ser convertida a string: target.value -> number -> string.
         amountSelected.textContent = String(Number(target.value) * 9.99);
     });

@@ -8,6 +8,7 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
 
 <Layout title="Ver producto">
     <style lang="scss">
+        // Variables de estilos
         @use "../styles/variables/metrics";
         @use "../styles/variables/colors";
 
@@ -82,7 +83,7 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 10;
+            z-index: 10; // Para que esté por encima de todo
             background-color: hsla(0, 0%, 0%, 0.5);
 
             &.visible {
@@ -117,6 +118,7 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
                         margin-bottom: 1rem;
                     }
 
+                    // Elimina el estilo por defecto de los inputs
                     input[type="number"],
                     input[type="number"]:focus,
                     input[type="number"]:focus-visible {
@@ -203,10 +205,16 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
                 >
             </div>
             <form>
-                <label for="cantidad"
+                <label for="amount"
                     >¿Cuantas galletas deseas comprar? (Máximo de 10)</label
                 >
-                <input type="number" name="cantidad" id="amount" max="10" value="1" />
+                <input
+                    type="number"
+                    name="amount"
+                    id="amount"
+                    max="10"
+                    value="1"
+                />
                 <p>Total: s/. <span id="amount-selected">0</span></p>
                 <button id="add-to-cart">Agregar</button>
             </form>
@@ -215,64 +223,77 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
 </Layout>
 
 <script>
+    // Modulos gracias a Typescript :D
     import { addLocalStorage } from "../utils/localStorage.js";
 
-    const modal = document.getElementById("modal");
-    const openModal = document.getElementById("open-modal");
-    const closeModal = document.getElementById("close-modal");
-    const amount = document.getElementById("amount");
-    const amountSelected: any = document.getElementById("amount-selected");
-    const addToCart = document.getElementById("add-to-cart");
-    const form = document.querySelector("form");
+    // Declarativo debido a Typescript -_-'
+    // HTMLInputElement y HTMLFormElement es un tipo de dato de Typescript, lo use debido a que daba errores al usar el método value y otros.
+    const modal = document.getElementById("modal") as HTMLInputElement;
+    const openModal = document.getElementById("open-modal") as HTMLInputElement;
+    const closeModal = document.getElementById("close-modal") as HTMLInputElement;
+    const amount = document.getElementById("amount") as HTMLInputElement;
+    const amountSelected = document.getElementById("amount-selected") as HTMLInputElement;
+    const addToCart = document.getElementById("add-to-cart") as HTMLInputElement;
+    const form = document.querySelector("form") as HTMLFormElement;
+    
+    const amountInput = document.getElementById("amount") as HTMLInputElement;
+    // De tipo entero, ya que no puede haber medio pedido, por ejemplo: 1.5 galletas, 2.5 galletas, etc. Ya me imagino a la gente pidiendo medio pedido de galletas...
+    const amountValue = parseInt(amountInput.value);
 
-    // Prevent default behaviour
-    form.addEventListener("submit", (e) => {
+    // Previene que la página se recargue al enviar el formulario
+    form.addEventListener("submit", (e: Event) => {
         e.preventDefault();
     });
 
     // Abre el modal
-    openModal.addEventListener("click", (e) => {
+    openModal.addEventListener("click", () => {
         modal.classList.add("visible");
     });
 
     // Cierra el modal
-    closeModal.addEventListener("click", (e) => {
+    closeModal.addEventListener("click", () => {
         modal.classList.remove("visible");
     });
 
     // Cierra el modal al hacer click fuera de el
-    window.addEventListener("click", (e) => {
+    window.addEventListener("click", (e: Event) => {
         if (e.target === modal) {
             modal.classList.remove("visible");
         }
     });
 
     // Actualiza el total de galletas seleccionadas
-    amount.addEventListener("input", (e) => {
-        amountSelected.textContent = e.target.value * 9.99;
+    amount.addEventListener("input", (e: Event) => {
+        // necesita ser tratado como HTMLInputElement para evitar errores de Typescript
+        const target = e.target as HTMLInputElement;
+        // target.value es de tipo string, por lo que necesita ser convertido a número, pero tambien amountSelected.textContent es de tipo string, por lo que la operacion tiene que ser convertida a string: target.value -> number -> string.
+        amountSelected.textContent = String(Number(target.value) * 9.99);
     });
 
     // Agrega el producto al carrito
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        // Objeto producto
         const product = {
             name: "Galletas Sacha Jergón",
             price: 9.99,
         };
 
-        // Max amount is 10
-        if (amount.value > 10 || amount.value < 1) {
+        // Si la cantidad es mayor a 10 o menor a 1, no se agrega al carrito
+        if (amountValue > 10 || amountValue < 1) {
             return;
         }
 
-        for (let i = 0; i < amount.value; i++) {
+        // Agrega el producto al carrito de compras en el local storage según la cantidad seleccionada
+        for (let i = 0; i < amountValue; i++) {
             addLocalStorage("Carrito", product);
         }
 
-        // Change the button text to "Agregado"
+        // Cambiar el texto del botón al agregar el producto
         addToCart.textContent = "Agregado";
 
+        // Después de 3 segundos, el botón vuelve a cerrar el modal
         setTimeout(() => {
             modal.classList.remove("visible");
         }, 3000);

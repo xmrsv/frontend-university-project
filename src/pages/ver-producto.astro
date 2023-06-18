@@ -2,8 +2,6 @@
 // Layout
 import Layout from "../layouts/Layout.astro";
 
-// Assets
-import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg";
 ---
 
 <Layout title="Ver producto">
@@ -49,11 +47,18 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
                     gap: 1rem;
 
                     .add-button {
-                        cursor: pointer;
-                        padding: 0.5rem 1rem;
-                        border-radius: 0.5rem;
-                        background-color: colors.$color-100;
-                        color: colors.$white;
+                        display: block;
+                        text-decoration: none;
+                        color: #fff;
+                        font-weight: 800;
+                        padding: 1rem 2rem;
+                        background-color: #7bad69;
+                        border-radius: 2rem;
+                        transition: background-color 200ms ease-in-out;
+
+                        &:hover {
+                            background-color: #5f8f4f;
+                        }
                     }
                 }
             }
@@ -93,7 +98,8 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
             }
 
             .content {
-                border-radius: 0.5rem;
+
+                border-radius: 1rem;
                 background-color: white;
                 max-width: 60ch;
                 padding: 2rem;
@@ -118,35 +124,46 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
                         margin-bottom: 1rem;
                     }
 
-                    // Elimina el estilo por defecto de los inputs
-                    input[type="number"],
-                    input[type="number"]:focus,
-                    input[type="number"]:focus-visible {
-                        padding: 0.5rem 1rem;
-                        border: none;
-                        border-radius: 0.3rem;
-                        font-family: monospace;
-                        font-size: 1rem;
-                        background-color: hsla(0, 0%, 0%, 0.1);
-                    }
-
                     button {
-                        padding: 0.5rem 1rem;
                         border: none;
-                        font-family: inherit;
-                        border-radius: 0.3rem;
-                        background-color: colors.$logotype;
-                        color: colors.$white;
+                        display: block;
+                        text-decoration: none;
+                        color: #fff;
+                        font-weight: 800;
+                        font-size: inherit;
+                        padding: 1rem 2rem;
+                        background-color: #7bad69;
+                        border-radius: 2rem;
+                        transition: background-color 200ms ease-in-out;
                         margin-bottom: 0;
-                        font-weight: 600;
+
+                        &:hover {
+                            background-color: #5f8f4f;
+                        }
                     }
                 }
             }
         }
+
+        // Elimina los borders del input cuando está enfocado
+        input:focus, input {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            border-bottom: 0.2rem solid #20202050;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: inherit;
+            font-size: 1.2rem;
+            background-color: hsl(0, 0%, 90%);
+        }
+        
     </style>
 
     <div class="container">
-        <img src={sachaJergonImg} alt="Galletas de Sacha Jergon" />
+        <img src="jergon_sacha_producto.jpg" alt="Galletas de Sacha Jergon" />
 
         <div class="text">
             <h1 class="product-title">Galletas Sacha Jergón</h1>
@@ -253,7 +270,6 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
         "amount"
     ) as HTMLInputElement;
     // De tipo entero, ya que no puede haber medio pedido, por ejemplo: 1.5 galletas, 2.5 galletas, etc. Ya me imagino a la gente pidiendo medio pedido de galletas...
-    const amountValue = parseInt(amountInput.value);
     const price: number = 9.99;
 
     // Actualiza el total de galletas seleccionadas al cargar la página
@@ -287,31 +303,27 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
         // necesita ser tratado como HTMLInputElement para evitar errores de Typescript
         const target: HTMLInputElement = e.target as HTMLInputElement;
         // target.value es de tipo string, por lo que necesita ser convertido a número, pero tambien amountSelected.textContent es de tipo string, por lo que la operacion tiene que ser convertida a string: target.value -> number -> string.
-        amountSelected.textContent = String(Number(target.value) * 9.99);
+        amountSelected.textContent = String(Number(target.value) * price);
+
+        console.log(amountSelected.innerText);
     });
 
     // Agrega el producto al carrito
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        // Objeto producto
-        const product = {
-            name: "Galletas Sacha Jergón",
-            price: 9.99,
-        };
+        const amountValue: number = parseInt(amountInput.value);
 
-        // Si la cantidad es mayor a 10 o menor a 1, no se agrega al carrito
-        if (amountValue > 10 || amountValue < 1) {
-            return;
-        }
-
-        // Agrega el producto al carrito de compras en el local storage según la cantidad seleccionada
+        // Agrega el producto al carrito
+        // addLocalStorage espera dos argumentos, el primero es el nombre del item y el segundo es el nombre del producto
+        // el producto debera ser un objeto con nombre y precio
+        // addLocalStorage va dentro de un bucle que se repite segun cuantas galletas se hayan seleccionado el usuario
         for (let i = 0; i < amountValue; i++) {
-            addLocalStorage("Carrito", product);
+            addLocalStorage("Carrito", {
+                name: "Galletas Sacha Jergón",
+                price: 9.99,
+            });
         }
-
-        // Cambiar el texto del botón al agregar el producto
-        addToCart.textContent = "Agregado";
 
         // Después de 3 segundos, el botón vuelve a cerrar el modal
         setTimeout(() => {

@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 
 //imagenes
 import cartIcon from "../assets/cart-big.svg";
+import ProductCard from "../components/Cards/ProductCard.astro";
 ---
 
 <Layout title="carrito">
@@ -54,7 +55,6 @@ import cartIcon from "../assets/cart-big.svg";
             }
 
             .buttons {
-                
                 margin: 2rem 0;
                 display: flex;
                 justify-content: flex-end;
@@ -95,6 +95,24 @@ import cartIcon from "../assets/cart-big.svg";
                 }
             }
         }
+
+        .container-products {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 2rem 0;
+            padding: 2rem 0;
+            border-radius: 1rem;
+            background-color: #d9f0dd;
+            color: #2d2d2d;
+            font-weight: 800;
+            font-size: 1.5rem;
+        
+            
+        }
+
+            
     </style>
 
     <div class="container">
@@ -103,30 +121,14 @@ import cartIcon from "../assets/cart-big.svg";
             <h1>Carrito</h1>
         </div>
 
-        <!-- Tabla -->
-        <div class="tabla">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-
-                <tbody id="table">
-                    <!-- Rows and columns -->
-                </tbody>
-
-                <tfoot>
-                    <tr>
-                        <td>Total</td>
-                        <td id="total">$ 0</td>
-                    </tr>
-                </tfoot>
-            </table>
+        <!-- Container -->
+        <div class="container-products" id="container-products">
+            <p>Vacio...</p>
         </div>
         <div class="buttons">
-            <span class="delete-products" id="delete-productos">Eliminar productos</span>
+            <span class="delete-products" id="delete-productos"
+                >Eliminar productos</span
+            >
             <span class="pagar" id="pagar">Pagar</span>
         </div>
     </div>
@@ -135,57 +137,114 @@ import cartIcon from "../assets/cart-big.svg";
         import { sendWhatsapp } from "../utils/integrations.js";
         import { getLocalStorage } from "../utils/localStorage.js";
 
-        const table: HTMLTableElement = document.getElementById("table");
-        const botonPagar: HTMLSpanElement = document.getElementById("pagar");
-        const addItem: HTMLSpanElement = document.getElementById("agregar");
-        const total: HTMLSpanElement = document.getElementById("total");
-        const price: HTMLSpanElement = document.getElementById("price");
-        const deleteProductos: HTMLSpanElement = document.getElementById("delete-productos");
-        const prices: HTMLSpanElement[] = document.getElementById("price");
-        
+        const container = document.getElementById("container-products");
+        const botonPagar: HTMLButtonElement = document.getElementById(
+            "pagar"
+        ) as HTMLButtonElement;
+        const addItem: HTMLButtonElement = document.getElementById(
+            "agregar"
+        ) as HTMLButtonElement;
+        const total: HTMLSpanElement = document.getElementById(
+            "total"
+        ) as HTMLSpanElement;
+        const price: HTMLInputElement = document.getElementById(
+            "price"
+        ) as HTMLInputElement;
+        const deleteProductos: HTMLButtonElement = document.getElementById(
+            "delete-productos"
+        ) as HTMLButtonElement;
+        let prices: HTMLInputElement = document.getElementById(
+            "price"
+        ) as HTMLInputElement;
+
         let totalValue: int = 0;
+        let totalAmount: int = 0;
         const whatsappNumber: string = "51935463517";
 
         // Obtiene los items del carrito de compras del localstorage
         const cartItem: Object = getLocalStorage("Carrito");
 
-        // Genera la tabla con los productos del carrito de compras 
-        for (let i = 0; i < cartItem.length; i++) {
-            table.innerHTML += `
-                <tr>
-                    <td>${cartItem[i].name}</td>
-                    <td id="price">${cartItem[i].price}</td>
-                </tr>
+        if (cartItem) {
+            cartItem.forEach((item) => {
+                totalAmount++;
+            });
+
+            try {
+                container.innerHTML = `
+
+                        <style>
+                            .cart {
+                                display: flex;
+                                gap: 1rem;
+                                border-radius: 1rem;
+                                background-color: #fff;
+                                border: 0.1rem solid hsl(0, 0%, 60%);
+                                max-width: fit-content;
+                                padding: 1rem 3rem;
+
+                            }
+                            .cart img {
+                                max-width: 100px;
+                            }
+
+                            .cart span {
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: flex-start;
+                            }
+
+                            .cart span h2 {
+                                font-weight: 800;
+                            }
+
+                            .cart span p {
+                                font-weight: 400;
+                            }
+                        </style>
+                        <div class=cart>
+                            <img src="/jergon_sacha_producto.jpg" alt="Product">
+                            <span>
+                                <h2>${cartItem[0].name}</h2>
+                                <p>Cantidad: ${totalAmount}</p>
+                            </span>
+                        </div>
             `;
+            } catch (e) {
+                console.log(e);
+            }
         }
 
-        // Suma los precios de los productos del carrito de compras
-        prices.forEach((price) => {
-            totalValue += Number(price.textContent);
-        });
-
-        // Actualiza el total de la compra
-        total.textContent = `s/. ${totalValue}`;
-
-        // Envia un mensaje de whatsapp con los productos del carrito de compras, al hacer click en el boton pagar
-        botonPagar.addEventListener("click", () => {
-            sendWhatsapp(
-                whatsappNumber,
-                `
-                Hola, quiero comprar los siguientes productos:
-                ${cartItem.map((item) => {
-                    return `${item.name} - s/. ${item.price}`;
-                })}
-                Total: s/. 1${totalValue}
-            `
-            );
+        // Obtiene el precio de cada producto y lo suma al total
+        cartItem.forEach((item) => {
+            totalValue += item.price;
         });
 
         // Delete products
         deleteProductos.addEventListener("click", () => {
             localStorage.removeItem("Carrito");
             location.reload();
+            total.textContent = `s/. ${totalValue}`;
         });
 
+        // Envia un mensaje de whatsapp con los productos del carrito de compras, al hacer click en el boton pagar
+        botonPagar.addEventListener("click", () => {
+            try {
+
+                // Solo deja dos decimales a totalValue
+                totalValue = totalValue.toFixed(2);
+
+                sendWhatsapp(
+                    whatsappNumber,
+                    `Hola, quisiera comprar 
+                    ${cartItem[0].name} x ${totalAmount}
+                    total: ${totalValue} soles
+                    `
+                );
+            } catch (e) {
+                console.log(e);
+                alert("No se pudo proceder");
+            }
+        });
     </script>
 </Layout>

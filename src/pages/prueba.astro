@@ -1,14 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+import ProductCart from '../components/Cards/ProductCard.astro';
+
+import image from '../assets/jergon_sacha_producto.jpg';
+
 ---
 
 
 <Layout title="Página de pruebas">
-    <div id="app"></div>
+    <ProductCart name="XD" amount="2" imageUrl={image} />
 </Layout>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-></script>
-<script>
-    let qrCode = new QRCode("app", "https://sachamama.netlify.app/");
-</script>

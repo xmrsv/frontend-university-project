@@ -1,3 +1,2 @@
-# Empty for now
 [functions]
-external_node_modules = ["astro"]
+directory = "dist/functions"

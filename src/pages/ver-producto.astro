@@ -254,6 +254,11 @@ import sachaJergonImg from "../assets/jergon-sacha-en-polvo-amazon-fruit-web.jpg
     ) as HTMLInputElement;
     // De tipo entero, ya que no puede haber medio pedido, por ejemplo: 1.5 galletas, 2.5 galletas, etc. Ya me imagino a la gente pidiendo medio pedido de galletas...
     const amountValue = parseInt(amountInput.value);
+    const price: number = 9.99;
+
+    // Actualiza el total de galletas seleccionadas al cargar la página
+    // Orrendl el casting, pero es necesario debido a que Typescript no reconoce el método textContent
+    amountSelected.textContent = String(Number(amountInput.value) * price);
 
     // Previene que la página se recargue al enviar el formulario
     form.addEventListener("submit", (e: Event) => {

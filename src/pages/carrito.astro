@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 
 //imagenes
 import cartIcon from "../assets/cart-big.svg";
-import ProductCard from "../components/Cards/ProductCard.astro";
 ---
 
 <Layout title="carrito">
@@ -57,9 +56,11 @@ import ProductCard from "../components/Cards/ProductCard.astro";
             .buttons {
                 margin: 2rem 0;
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
 
-                .pagar {
+
+                .check-out {
+                    height: fit-content;
                     display: block;
                     text-decoration: none;
                     color: #fff;
@@ -75,6 +76,7 @@ import ProductCard from "../components/Cards/ProductCard.astro";
                 }
 
                 .delete-products {
+                    height: fit-content;
                     display: block;
                     text-decoration: none;
                     color: #fff;
@@ -98,21 +100,33 @@ import ProductCard from "../components/Cards/ProductCard.astro";
 
         .container-products {
             display: flex;
-            justify-content: center;
             align-items: center;
             flex-direction: column;
             margin: 2rem 0;
-            padding: 2rem 0;
+            padding: 2rem;
             border-radius: 1rem;
-            background-color: #d9f0dd;
-            color: #2d2d2d;
-            font-weight: 800;
-            font-size: 1.5rem;
-        
-            
+            background-color: hsl(0, 0%, 90%);
+            height: fit-content;
+
+            p {
+                display: grid;
+                place-items: center;
+                font-size: 2rem;
+                width: 100%;
+                height: 512px;
+                border-radius:1rem;
+                background-color: hsl(0, 0%, 90%);
+            }
+
         }
 
-            
+        @media screen and (max-width: 768px) {
+            .container {
+
+                .buttons {
+                }
+            }
+        }
     </style>
 
     <div class="container">
@@ -123,13 +137,13 @@ import ProductCard from "../components/Cards/ProductCard.astro";
 
         <!-- Container -->
         <div class="container-products" id="container-products">
-            <p>Vacio...</p>
+            <p>Vacio, por el momento...</p>
         </div>
         <div class="buttons">
             <span class="delete-products" id="delete-productos"
                 >Eliminar productos</span
             >
-            <span class="pagar" id="pagar">Pagar</span>
+            <span class="check-out" id="pagar">Pagar</span>
         </div>
     </div>
 
@@ -179,10 +193,11 @@ import ProductCard from "../components/Cards/ProductCard.astro";
                                 border-radius: 1rem;
                                 background-color: #fff;
                                 border: 0.1rem solid hsl(0, 0%, 60%);
-                                max-width: fit-content;
+                                width: 100%;
                                 padding: 1rem 3rem;
 
                             }
+
                             .cart img {
                                 max-width: 100px;
                             }
@@ -201,12 +216,27 @@ import ProductCard from "../components/Cards/ProductCard.astro";
                             .cart span p {
                                 font-weight: 400;
                             }
+
+                            @media screen and (max-width: 768px) {
+                                .cart {
+                                    flex-direction: column;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                }
+                                .cart img {
+                                    max-width: 100px;
+                                }
+                                .cart span {
+                                    align-items: center;
+                                }
+                            }
                         </style>
                         <div class=cart>
                             <img src="/jergon_sacha_producto.jpg" alt="Product">
                             <span>
                                 <h2>${cartItem[0].name}</h2>
                                 <p>Cantidad: ${totalAmount}</p>
+                                <p>Total: ${(totalAmount * 9.99).toFixed(2)} soles</p>
                             </span>
                         </div>
             `;
@@ -224,7 +254,12 @@ import ProductCard from "../components/Cards/ProductCard.astro";
         deleteProductos.addEventListener("click", () => {
             localStorage.removeItem("Carrito");
             location.reload();
-            total.textContent = `s/. ${totalValue}`;
+
+            try {
+                total.textContent = `s/. ${totalValue}`;
+            } catch (e) {
+                console.log(e);
+            }
         });
 
         // Envia un mensaje de whatsapp con los productos del carrito de compras, al hacer click en el boton pagar

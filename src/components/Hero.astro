@@ -1,16 +1,21 @@
 <style lang="scss">
     @use "../styles/variables/colors";
+    @use "../styles/variables/metrics";
 
     section {
         background-image: url("/fondo_hero.png");
         background-position: center;
         background-size: cover;
+        text-align: center;
 
         display: grid;
         place-items: center;
         height: 484px;
 
+
         div {
+        max-width: metrics.$container-max-width;
+
             h1 {
                 font-size: 36px;
                 font-weight: 500;
@@ -22,7 +27,6 @@
             p {
                 color: colors.$ghost-white;
                 font-size: 16px;
-                text-align: center;
                 margin-block-end: 30px;
             }
 
@@ -41,6 +45,7 @@
             }
         }
     }
+
 </style>
 
 <section>

@@ -2,7 +2,6 @@
 // assets
 import cartIcon from "../assets/cart-icon.svg";
 import menuIcon from "../assets/menu-icon.svg";
-
 ---
 
 <style lang="scss">
@@ -25,9 +24,9 @@ import menuIcon from "../assets/menu-icon.svg";
                 display: none;
 
                 a {
-                text-decoration: none;
-font-size: 2rem;
-color: colors.$black;   
+                    text-decoration: none;
+                    font-size: 2rem;
+                    color: colors.$black;
                 }
             }
 
@@ -80,7 +79,6 @@ color: colors.$black;
 
                     img {
                         margin-block-end: 5px;
-
                     }
                 }
             }
@@ -190,8 +188,8 @@ color: colors.$black;
     let hamburguerButtonText = hamburguerButton.querySelector("span");
 
     hamburguerButton.addEventListener("click", () => {
-
-        hamburguerButtonText.textContent = hamburguerButtonText.textContent === "Menu" ? "Cerrar" : "Menu";
+        hamburguerButtonText.textContent =
+            hamburguerButtonText.textContent === "Menu" ? "Cerrar" : "Menu";
 
         navigation.classList.toggle("visible");
     });

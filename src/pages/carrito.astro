@@ -58,7 +58,6 @@ import cartIcon from "../assets/cart-big.svg";
                 display: flex;
                 justify-content: center;
 
-
                 .check-out {
                     height: fit-content;
                     display: block;
@@ -114,15 +113,13 @@ import cartIcon from "../assets/cart-big.svg";
                 font-size: 2rem;
                 width: 100%;
                 height: 512px;
-                border-radius:1rem;
+                border-radius: 1rem;
                 background-color: hsl(0, 0%, 90%);
             }
-
         }
 
         @media screen and (max-width: 768px) {
             .container {
-
                 .buttons {
                 }
             }
@@ -236,7 +233,9 @@ import cartIcon from "../assets/cart-big.svg";
                             <span>
                                 <h2>${cartItem[0].name}</h2>
                                 <p>Cantidad: ${totalAmount}</p>
-                                <p>Total: ${(totalAmount * 9.99).toFixed(2)} soles</p>
+                                <p>Total: ${(totalAmount * 9.99).toFixed(
+                                    2
+                                )} soles</p>
                             </span>
                         </div>
             `;
@@ -265,7 +264,6 @@ import cartIcon from "../assets/cart-big.svg";
         // Envia un mensaje de whatsapp con los productos del carrito de compras, al hacer click en el boton pagar
         botonPagar.addEventListener("click", () => {
             try {
-
                 // Solo deja dos decimales a totalValue
                 totalValue = totalValue.toFixed(2);
 

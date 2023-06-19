@@ -1,12 +1,14 @@
-@use './variables/typography';
+@use "./variables/typography";
 
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: typography.$logotype;
-    overflow-x: hidden; // Evita el scroll horizontal, conocido como overflow
+  font-family: typography.$logotype;
+  overflow-x: hidden; // Evita el scroll horizontal, conocido como overflow
 }

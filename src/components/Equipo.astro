@@ -1,0 +1,170 @@
+---
+import fotoImg from "../assets/pexels-foto.jpeg";
+
+---
+
+<style lang="scss">
+    @use "../styles/variables/colors";
+    @use "../styles/variables/metrics";
+
+    h1{
+        font-size: 4rem;
+    }
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .wrapper {
+        max-width: metrics.$container-max-width;
+        margin: auto;
+
+    }
+    //ubicación de tarjetas
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-bottom: 4rem;
+    }
+    
+    .tarjet {
+        background-color: colors.$primary-color;
+        padding: 2rem;
+        border-radius: 2rem;
+        width: 400px;
+        transition: transform 0.3s ease, background-color 200ms ease;
+
+        &:hover {
+            transform: scale(1.02);
+            background-color: colors.$logotype;
+        }
+
+        .foto {
+            img {
+                max-width: 100%;
+                width: 400px;
+                border-radius: 2rem;
+            }
+        }
+
+        .titulo {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .descripcion {
+            margin-top: 1rem;
+            text-align: center;
+        }
+    }
+</style>
+<div class="wrapper">
+    <h1>Equipo</h1>
+    <h2>Ingeniería de Sistemas</h2>
+    <div class="container">
+        <!-- Ingeniería de Sistemas -->
+        <div class="tarjet">
+            <!-- Fotos -->
+            <div class="foto">
+                <img src={fotoImg} alt="jerika" />
+            </div>
+
+            <!-- Título -->
+            <div class="titulo">
+                <h3>Jerika Anthonella Reyna Ramírez</h3>
+            </div>
+
+            <!-- Descripción -->
+            <div class="descripcion">
+                <p>Co-Fundadora</p>
+            </div>
+        </div>
+
+        <div class="tarjet center">
+            <!-- Fotos -->
+            <div class="foto">
+                <img src={fotoImg} alt="jerika" />
+            </div>
+
+            <!-- Título -->
+            <div class="titulo">
+                <h3>Miguel Adrian Gonzales Rengifo</h3>
+            </div>
+
+            <!-- Descripción -->
+            <div class="descripcion">
+                <p>Co-Fundador</p>
+            </div>
+        </div>
+
+        <div class="tarjet">
+            <!-- Fotos -->
+            <div class="foto">
+                <img src={fotoImg} alt="jerika" />
+            </div>
+
+            <!-- Título -->
+            <div class="titulo">
+                <h3>Mayler Fabrizzio Villegas Valdera</h3>
+            </div>
+
+            <!-- Descripción -->
+            <div class="descripcion">
+                <p>Co-Fundador</p>
+            </div>
+        </div>
+    </div>
+
+    <h2>Marketing</h2>
+    <div class="container">
+        <div class="tarjet">
+            <!-- Fotos -->
+            <div class="foto">
+                <img src={fotoImg} alt="jerika" />
+            </div>
+
+            <!-- Título -->
+            <div class="titulo">
+                <h3>Nombres Completos</h3>
+            </div>
+
+            <!-- Descripción -->
+            <div class="descripcion">
+                <p>Descripción de la persona</p>
+            </div>
+        </div>
+
+        <div class="tarjet center">
+            <!-- Fotos -->
+            <div class="foto">
+                <img src={fotoImg} alt="jerika" />
+            </div>
+
+            <!-- Título -->
+            <div class="titulo">
+                <h3>Nombres Completos</h3>
+            </div>
+
+            <!-- Descripción -->
+            <div class="descripcion">
+                <p>Descripción de la persona</p>
+            </div>
+        </div>
+
+        <div class="tarjet">
+            <!-- Fotos -->
+            <div class="foto">
+                <img src={fotoImg} alt="jerika" />
+            </div>
+
+            <!-- Título -->
+            <div class="titulo">
+                <h3>Nombres Completos</h3>
+            </div>
+
+            <!-- Descripción -->
+            <div class="descripcion">
+                <p>Descripción de la persona</p>
+            </div>
+        </div>
+    </div>
+</div>

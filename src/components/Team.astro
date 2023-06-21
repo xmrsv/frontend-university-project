@@ -1,6 +1,11 @@
 ---
 // Assets
-import fotoImg from "../assets/pexels-foto.jpeg";
+import jerikaImg from "../assets/mem_jerika.jpeg";
+import miguelImg from "../assets/mem_miguel.jpg";  
+import maylerImg from "../assets/mem_mayler.jpeg";
+import jhanImg from "../assets/mem_jhan.jpeg";
+import joseImg from "../assets/mem_jose.jpeg";
+import kevinImg from "../assets/mem_kevin.jpg";
 ---
 
 <style lang="scss">
@@ -43,9 +48,11 @@ import fotoImg from "../assets/pexels-foto.jpeg";
 
         .foto {
             img {
-                max-width: 100%;
                 width: 400px;
-                border-radius: 2rem;
+                height: 400px;
+                max-width: 100%;
+                object-fit: cover  ;
+                border-radius: 1rem;
             }
         }
 
@@ -77,7 +84,7 @@ import fotoImg from "../assets/pexels-foto.jpeg";
         <div class="tarjet">
             <!-- Fotos -->
             <div class="foto">
-                <img src={fotoImg} alt="jerika" />
+                <img src={jerikaImg} alt="jerika" />
             </div>
 
             <!-- Título -->
@@ -94,7 +101,7 @@ import fotoImg from "../assets/pexels-foto.jpeg";
         <div class="tarjet center">
             <!-- Fotos -->
             <div class="foto">
-                <img src={fotoImg} alt="jerika" />
+                <img src={miguelImg} alt="miguel" />
             </div>
 
             <!-- Título -->
@@ -111,7 +118,7 @@ import fotoImg from "../assets/pexels-foto.jpeg";
         <div class="tarjet">
             <!-- Fotos -->
             <div class="foto">
-                <img src={fotoImg} alt="jerika" />
+                <img src={maylerImg} alt="mayler" />
             </div>
 
             <!-- Título -->
@@ -131,7 +138,7 @@ import fotoImg from "../assets/pexels-foto.jpeg";
         <div class="tarjet">
             <!-- Fotos -->
             <div class="foto">
-                <img src={fotoImg} alt="jerika" />
+                <img src={jhanImg} alt="jhan" />
             </div>
 
             <!-- Título -->
@@ -148,7 +155,7 @@ import fotoImg from "../assets/pexels-foto.jpeg";
         <div class="tarjet center">
             <!-- Fotos -->
             <div class="foto">
-                <img src={fotoImg} alt="jerika" />
+                <img src={joseImg} alt="jose" />
             </div>
 
             <!-- Título -->
@@ -165,7 +172,7 @@ import fotoImg from "../assets/pexels-foto.jpeg";
         <div class="tarjet">
             <!-- Fotos -->
             <div class="foto">
-                <img src={fotoImg} alt="jerika" />
+                <img src={kevinImg} alt="kevin" />
             </div>
 
             <!-- Título -->

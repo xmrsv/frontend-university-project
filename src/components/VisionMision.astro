@@ -4,6 +4,8 @@ import compassImg from "../assets/compass.svg";
 import eyesImg from "../assets/eyes.svg";
 import heartImg from "../assets/heart.svg";
 import misionImg from "../assets/mision.jpg";
+import valoresImg from "../assets/valores.jpg";
+import visionImg from "../assets/vision.jpg";
 ---
 
 <style lang="scss">
@@ -17,43 +19,109 @@ import misionImg from "../assets/mision.jpg";
     }
 
     p {
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: 400;
         margin-bottom: 1rem;
     }
 
     .container {
+        margin: auto;
         max-width: metrics.$container-max-width;
-        margin: 100px auto;
-        .title {
-            display: flex;
-            align-items: center;
-            width: fit-content;
-
-            img {
-                margin-right: 1rem;
-            }
-
-            h2 {
-                margin-bottom: 0;
-            }
-            h3 {
-            }
-        }
-
-        .imagenes {
-            width: 240px;
-        }
 
         .align {
-            display: flex;
-            margin-bottom: 50px;
+            margin: 2rem 0;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 70% 30%;
+            align-items: center;
+            justify-content: center;
+            background-color: colors.$primary-color;
+            border-radius: 1rem;
+
+            &.left {
+                grid-template-columns: 30% 70%;
+                .title {
+                    justify-content: flex-end;
+                }
+                p {
+                    text-align: right;
+                }
+            }
+
+            .imagenes {
+                margin: auto;
+                width: 300px;
+                height: 300px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .title {
+                display: flex;
+                align-items: center;
+                margin-bottom: 1rem;
+
+                img {
+                    margin-right: 0.5rem;
+                }
+
+                h2 {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1400px) {
+        .container {
+            .align {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(2, 1fr);
+                grid-template-areas: "imagen" "text";
+
+                &.left {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: repeat(2, 1fr);
+                    grid-template-areas: "textito" "imagen";
+
+                    .text {
+                        .title {
+                            grid-area: textito;
+
+                            h2 {
+                                text-align: center;
+                            }
+                        }
+
+                        p {
+                            text-align: center;
+                        }
+                    }
+                    
+                    .imagenes {
+                        grid-area: imagen;
+                    }
+                }
+
+                .text {
+                    text-align: center;
+
+                    .title {
+                        justify-content: center;
+                    }
+                }
+
+                .imagenes {
+                    max-width: 250px;
+                    max-height: 250px;
+                }
+            }
         }
     }
 </style>
 <div class="container">
     <div class="align">
-        <div>
+        <div class="text">
             <div class="title">
                 <img src={compassImg} alt="" />
                 <h2>Misión</h2>
@@ -68,8 +136,9 @@ import misionImg from "../assets/mision.jpg";
         <img class="imagenes" src={misionImg} alt="" />
     </div>
 
-    <div class="align">
-        <div>
+    <div class="align left">
+        <img class="imagenes" src={visionImg} alt="" />
+        <div class="text">
             <div class="title">
                 <img src={eyesImg} alt="" />
                 <h2>Visión</h2>
@@ -80,11 +149,10 @@ import misionImg from "../assets/mision.jpg";
                 bienestar y salud a nuestros consumidores.
             </p>
         </div>
-        <img class="imagenes" src={misionImg} alt="" />
     </div>
 
     <div class="align">
-        <div>
+        <div class="text">
             <div class="title">
                 <img src={heartImg} alt="" />
                 <h2>Valores</h2>
@@ -106,6 +174,6 @@ import misionImg from "../assets/mision.jpg";
                 siempre con el ejemplo.
             </p>
         </div>
-        <img class="imagenes" src={misionImg} alt="" />
+        <img class="imagenes" src={valoresImg} alt="" />
     </div>
 </div>

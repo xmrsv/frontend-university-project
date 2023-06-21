@@ -123,8 +123,6 @@ import cartIcon from "../assets/cart-big.svg";
                 .buttons {
                 }
             }
-
-            
         }
     </style>
 
@@ -147,8 +145,8 @@ import cartIcon from "../assets/cart-big.svg";
     </div>
 
     <script>
-        import { sendWhatsapp } from "../utils/integrations.js";
-        import { getLocalStorage } from "../utils/localStorage.js";
+        import { sendWhatsapp } from "../lib/integrations.js";
+        import { getLocalStorage } from "../lib/localStorage.js";
 
         const container = document.getElementById("container-products");
         const botonPagar: HTMLButtonElement = document.getElementById(
@@ -170,8 +168,9 @@ import cartIcon from "../assets/cart-big.svg";
             "price"
         ) as HTMLInputElement;
 
-        let totalValue: int = 0;
-        let totalAmount: int = 0;
+        const priceProduct: number = 6;
+        let totalValue: number = 0;
+        let totalAmount: number = 0;
         const whatsappNumber: string = "51935463517";
 
         // Obtiene los items del carrito de compras del localstorage
@@ -235,9 +234,9 @@ import cartIcon from "../assets/cart-big.svg";
                             <span>
                                 <h2>${cartItem[0].name}</h2>
                                 <p>Cantidad: ${totalAmount}</p>
-                                <p>Total: ${(totalAmount * 9.99).toFixed(
-                                    2
-                                )} soles</p>
+                                <p>Total: ${(
+                                    totalAmount * priceProduct
+                                ).toFixed(2)} soles</p>
                             </span>
                         </div>
             `;
@@ -271,10 +270,7 @@ import cartIcon from "../assets/cart-big.svg";
 
                 sendWhatsapp(
                     whatsappNumber,
-                    `Hola, quisiera comprar 
-                    ${cartItem[0].name} x ${totalAmount}
-                    total: ${totalValue} soles
-                    `
+                    `Hola, quisiera comprar "${cartItem[0].name}" x ${totalAmount}, total: ${totalValue} soles`
                 );
             } catch (e) {
                 console.log(e);

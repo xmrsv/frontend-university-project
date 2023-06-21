@@ -1,6 +1,6 @@
 ---
 // Assets
-import sachaJergonImage from '../assets/galleta_sacha_jergon.jpg';
+import sachaJergonImage from "../assets/galleta_sacha_jergon.jpg";
 
 // Layout
 import Layout from "../layouts/Layout.astro";
@@ -203,7 +203,7 @@ import Layout from "../layouts/Layout.astro";
         <div class="text">
             <h1 class="product-title">Galletas Sacha Jergón</h1>
 
-            <span class="product-price-title">9.99 soles</span>
+            <span class="product-price-title">6 soles</span>
 
             <h2 class="product-about-title">Sobre este artículo</h2>
 
@@ -276,7 +276,7 @@ import Layout from "../layouts/Layout.astro";
 
 <script>
     // Modulos gracias a Typescript :D
-    import { addLocalStorage } from "../utils/localStorage.js";
+    import { addLocalStorage } from "../lib/localStorage.js";
 
     // Declarativo debido a Typescript -_-'
     // HTMLInputElement y HTMLFormElement es un tipo de dato de Typescript, lo use debido a que daba errores al usar el método value y otros.
@@ -305,11 +305,13 @@ import Layout from "../layouts/Layout.astro";
         "amount"
     ) as HTMLInputElement;
     // De tipo entero, ya que no puede haber medio pedido, por ejemplo: 1.5 galletas, 2.5 galletas, etc. Ya me imagino a la gente pidiendo medio pedido de galletas...
-    const price: number = 9.99;
+    const priceProduct: number = 6;
 
     // Actualiza el total de galletas seleccionadas al cargar la página
     // Orrendl el casting, pero es necesario debido a que Typescript no reconoce el método textContent
-    amountSelected.textContent = String(Number(amountInput.value) * price);
+    amountSelected.textContent = String(
+        Number(amountInput.value) * priceProduct
+    );
 
     // Previene que la página se recargue al enviar el formulario
     form.addEventListener("submit", (e: Event) => {
@@ -338,7 +340,9 @@ import Layout from "../layouts/Layout.astro";
         // necesita ser tratado como HTMLInputElement para evitar errores de Typescript
         const target: HTMLInputElement = e.target as HTMLInputElement;
         // target.value es de tipo string, por lo que necesita ser convertido a número, pero tambien amountSelected.textContent es de tipo string, por lo que la operacion tiene que ser convertida a string: target.value -> number -> string.
-        amountSelected.textContent = String(Number(target.value) * price);
+        amountSelected.textContent = String(
+            Number(target.value) * priceProduct
+        );
 
         console.log(amountSelected.innerText);
     });
@@ -356,7 +360,7 @@ import Layout from "../layouts/Layout.astro";
         for (let i = 0; i < amountValue; i++) {
             addLocalStorage("Carrito", {
                 name: "Galletas Sacha Jergón",
-                price: 9.99,
+                price: priceProduct,
             });
         }
 

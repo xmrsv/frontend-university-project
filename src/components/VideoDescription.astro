@@ -1,0 +1,30 @@
+---
+import sachamamaVideo from '../assets/sachamama_video.mp4'
+---
+<style lang="scss">
+    @use '../styles/variables/typography';
+    @use '../styles/variables/metrics';
+
+
+    .container {
+        margin: 4rem 0;
+    }
+
+    h2 {
+        max-width: metrics.$container-max-width;
+        margin: auto;
+        margin-bottom: 2rem;
+        font-weight: 400;
+        font-size: typography.$size-4;
+    }
+
+    video {
+        width: 100%;
+        display: block;
+    }
+</style>
+
+<div class="container">
+    <h2>Video introductorio</h2>
+    <video src={sachamamaVideo} autoplay loop controls></video>
+</div>

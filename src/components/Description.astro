@@ -6,6 +6,7 @@ import plantaSachaJergon from "../assets/planta_jergon_sacha.jpg";
 <style lang="scss">
     @use "../styles/variables/colors";
     @use "../styles/variables/metrics";
+    @use "../styles/variables/typography";
 
     section {
         margin: 100px auto;
@@ -19,13 +20,13 @@ import plantaSachaJergon from "../assets/planta_jergon_sacha.jpg";
             width: fit-content;
 
             h2 {
-                font-size: 40px;
+                font-size: typography.$size-5;
                 font-weight: 500;
                 margin-block-end: 30px;
             }
 
             p {
-                font-size: 20px;
+                font-size: typography.$size-2;
                 color: hsla(0, 0%, 0%, 60%);
                 margin-block-end: 30px;
             }
@@ -39,7 +40,6 @@ import plantaSachaJergon from "../assets/planta_jergon_sacha.jpg";
                 text-decoration: none;
                 transition: transform 200ms ease-in-out,
                     border-bottom 200ms ease-in-out;
-
                 border-bottom: 0.4rem solid transparent;
 
                 &:hover {
@@ -48,6 +48,7 @@ import plantaSachaJergon from "../assets/planta_jergon_sacha.jpg";
                 }
 
                 p {
+                font-size: typography.$size-2;
                     font-weight: 600;
                     margin: 0;
 

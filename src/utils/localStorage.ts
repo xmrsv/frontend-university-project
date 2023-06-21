@@ -13,7 +13,7 @@ export function getLocalStorage(key: string): Object {
 // Elimina un item del localstorage
 export function deleteLocalStorage(key: string, value: any): void {
     // De tipo any porque de tipo Object no funciona :(
-    let items: any = getLocalStorage(key); 
+    let items: any = getLocalStorage(key);
     let newItems = items.filter(
         (product: any) => product !== value);
     localStorage.setItem(key, JSON.stringify(newItems));

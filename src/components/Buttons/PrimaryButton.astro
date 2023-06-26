@@ -1,0 +1,35 @@
+---
+interface Props {
+    link?: string;
+    className?: string;
+}
+
+const { link, className } = Astro.props;
+---
+
+<style lang="scss">
+    @use "../../styles/variables/_colors.scss";
+
+    a {
+        display: block;
+        padding: 1rem;
+        max-width: fit-content;
+        text-decoration: none;
+        background-color: colors.$primary-color;
+        color: colors.$black;
+        font-weight: 500;
+        border-radius: 10px;
+    }
+</style>
+
+<a href={"" + link} class:list={className}>
+    <slot />
+</a>
+
+<script>
+    let link = document.getElementsByTagName("a").item(0);
+
+    link.addEventListener("click", () => {
+        localStorage.setItem("Carrito", "galleta-sacha-jergon");
+    });
+</script>

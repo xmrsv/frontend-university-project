@@ -1,0 +1,179 @@
+---
+// Assets
+import compassImg from "../assets/compass.svg";
+import eyesImg from "../assets/eyes.svg";
+import heartImg from "../assets/heart.svg";
+import misionImg from "../assets/mision.jpg";
+import valoresImg from "../assets/valores.jpg";
+import visionImg from "../assets/vision.jpg";
+---
+
+<style lang="scss">
+    @use "../styles/variables/colors";
+    @use "../styles/variables/metrics";
+    
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+
+    .container {
+        margin: auto;
+        max-width: metrics.$container-max-width;
+
+        .align {
+            margin: 2rem 0;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 70% 30%;
+            align-items: center;
+            justify-content: center;
+            background-color: colors.$primary-color;
+            border-radius: 1rem;
+
+            &.left {
+                grid-template-columns: 30% 70%;
+                .title {
+                    justify-content: flex-end;
+                }
+                p {
+                    text-align: right;
+                }
+            }
+
+            .imagenes {
+                margin: auto;
+                width: 300px;
+                height: 300px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+
+            .title {
+                display: flex;
+                align-items: center;
+                margin-bottom: 1rem;
+
+                img {
+                    margin-right: 0.5rem;
+                }
+
+                h2 {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1400px) {
+        .container {
+            .align {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(2, 1fr);
+                grid-template-areas: "imagen" "text";
+
+                &.left {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: repeat(2, 1fr);
+                    grid-template-areas: "textito" "imagen";
+
+                    .text {
+                        .title {
+                            grid-area: textito;
+
+                            h2 {
+                                text-align: center;
+                            }
+                        }
+
+                        p {
+                            text-align: center;
+                        }
+                    }
+                    
+                    .imagenes {
+                        grid-area: imagen;
+                    }
+                }
+
+                .text {
+                    text-align: center;
+
+                    .title {
+                        justify-content: center;
+                    }
+                }
+
+                .imagenes {
+                    max-width: 250px;
+                    max-height: 250px;
+                }
+            }
+        }
+    }
+</style>
+<div class="container">
+    <div class="align">
+        <div class="text">
+            <div class="title">
+                <img src={compassImg} alt="" />
+                <h2>Misión</h2>
+            </div>
+            <p>
+                Somos una empresa que fabrica y distribuye productos saludables,
+                cumpliendo estándares de calidad, generando un valor agregado a
+                todos nuestros procesos. Utilizando como materia prima el
+                cultivo nativo de nuestra región San Martin.
+            </p>
+        </div>
+        <img class="imagenes" src={misionImg} alt="" />
+    </div>
+
+    <div class="align left">
+        <img class="imagenes" src={visionImg} alt="" />
+        <div class="text">
+            <div class="title">
+                <img src={eyesImg} alt="" />
+                <h2>Visión</h2>
+            </div>
+            <p>
+                Ser una empresa reconocida en el sector alimenticio como la
+                primera opción en el mercado. Promocionando producto que brindan
+                bienestar y salud a nuestros consumidores.
+            </p>
+        </div>
+    </div>
+
+    <div class="align">
+        <div class="text">
+            <div class="title">
+                <img src={heartImg} alt="" />
+                <h2>Valores</h2>
+            </div>
+            <h3>Respeto</h3>
+            <p>
+                Conducirnos con cortesía, tolerancia y solidaridad para lograr
+                un buen ambiente con nuestros clientes y compañeros.
+            </p>
+            <h3>Responsabilidad</h3>
+            <p>
+                Cumplir con nuestras actividades diarias comprometidos siempre
+                con la calidad de nuestro trabajo.
+            </p>
+            <h3>Integridad</h3>
+            <p>
+                Actuar con congruencia entre lo que se dice y hace en el
+                desarrollo de cada una de nuestras actividades para predicar
+                siempre con el ejemplo.
+            </p>
+        </div>
+        <img class="imagenes" src={valoresImg} alt="" />
+    </div>
+</div>

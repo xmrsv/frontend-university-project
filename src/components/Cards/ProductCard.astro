@@ -5,12 +5,11 @@ interface Props {
     imageUrl: string;
 }
 
-const { name, amount, imageUrl } = Astro.props; 
-
+const { name, amount, imageUrl } = Astro.props;
 ---
+
 <style lang="scss">
     .cart {
-
         div {
             display: flex;
             gap: 1rem;
@@ -18,27 +17,26 @@ const { name, amount, imageUrl } = Astro.props;
             border: 0.1rem solid hsl(0, 0%, 60%);
             max-width: fit-content;
             padding: 1rem 3rem;
-    
+
             img {
                 max-width: 100px;
             }
-    
+
             span {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
             }
-    
         }
     }
 </style>
 
 <div class="cart">
     <div>
-        <img src={ imageUrl } alt="Product">
+        <img src={imageUrl} alt="Product" />
         <span>
-            <h1>{ name }</h1>
-            <p>Cantidad: { amount }</p>
+            <h1>{name}</h1>
+            <p>Cantidad: {amount}</p>
         </span>
     </div>
 </div>

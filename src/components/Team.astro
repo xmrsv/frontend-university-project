@@ -1,0 +1,197 @@
+---
+// Assets
+import jerikaImg from "../assets/mem_jerika.jpeg";
+import miguelImg from "../assets/mem_miguel.jpeg";
+import maylerImg from "../assets/mem_mayler.jpeg";
+import jhanImg from "../assets/mem_jhan.jpeg";
+import joseImg from "../assets/mem_jose.jpeg";
+import kevinImg from "../assets/mem_kevin.jpg";
+---
+
+<style lang="scss">
+    @use "../styles/variables/colors";
+    @use "../styles/variables/metrics";
+    @use "../styles/variables/typography";
+
+    h1 {
+        font-size: typography.$size-5;
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        font-size: typography.$size-4;
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
+
+    .wrapper {
+        max-width: metrics.$container-max-width;
+        margin: auto;
+    }
+
+    .container-sys-eng,
+    .container-amb-eng {
+        background-color: colors.$ghost-green;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 4rem;
+    }
+
+    // Contenedor y ubicación de tarjetas
+    .container {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 4rem;
+    }
+
+    .tarjet {
+        background-color: colors.$primary-color;
+        padding: 2rem;
+        border-radius: 2rem;
+        max-width: 400px;
+        transition: transform 0.3s ease, background-color 200ms ease;
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            transform: scale(1.02);
+            background-color: colors.$logotype;
+        }
+
+        .foto {
+            margin-bottom: 1rem;
+
+            img {
+                width: 400px;
+                height: 400px;
+                max-width: 100%;
+                object-fit: cover;
+                border-radius: 1rem;
+            }
+        }
+
+        .titulo {
+            margin-bottom: 1rem;
+            font-size: typography.$size-3;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .descripcion {
+            text-align: center;
+        }
+    }
+    @media screen and (max-width: 1600px) {
+        .container {
+            flex-direction: column;
+        }
+        .tarjet {
+            width: 100%;
+            margin: auto;
+        }
+    }
+</style>
+<div class="wrapper">
+    <h1>Equipo</h1>
+    <div class="container-sys-eng">
+        <h2>Ingeniería de Sistemas</h2>
+        <div class="container">
+            <!-- Ingeniería de Sistemas -->
+            <div class="tarjet">
+                <!-- Fotos -->
+                <div class="foto">
+                    <img src={jerikaImg} alt="jerika" />
+                </div>
+
+                <!-- Título -->
+                <h3 class="titulo">Jerika Anthonella Reyna Ramírez</h3>
+
+                <!-- Descripción -->
+                <div class="descripcion">
+                    <p>Soporte Técnico</p>
+                </div>
+            </div>
+
+            <div class="tarjet center">
+                <!-- Fotos -->
+                <div class="foto">
+                    <img src={miguelImg} alt="miguel" />
+                </div>
+
+                <!-- Título -->
+                <h3 class="titulo">Miguel Adrian Gonzales Rengifo</h3>
+
+                <!-- Descripción -->
+                <div class="descripcion">
+                    <p>Programador</p>
+                </div>
+            </div>
+
+            <div class="tarjet">
+                <!-- Fotos -->
+                <div class="foto">
+                    <img src={maylerImg} alt="mayler" />
+                </div>
+
+                <!-- Título -->
+                <h3 class="titulo">Mayler Fabrizzio Villegas Valdera</h3>
+
+                <!-- Descripción -->
+                <div class="descripcion">
+                    <p>Programador</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-amb-eng">
+        <h2>Marketing</h2>
+        <div class="container">
+            <div class="tarjet">
+                <!-- Fotos -->
+                <div class="foto">
+                    <img src={jhanImg} alt="jhan" />
+                </div>
+
+                <!-- Título -->
+                <h3 class="titulo">Jhan Romero Nuñez</h3>
+
+                <!-- Descripción -->
+                <div class="descripcion">
+                    <p>Sub Gerente, Director Marketing, Publicidad</p>
+                </div>
+            </div>
+
+            <div class="tarjet center">
+                <!-- Fotos -->
+                <div class="foto">
+                    <img src={joseImg} alt="jose" />
+                </div>
+
+                <!-- Título -->
+                <h3 class="titulo">Jose Armas Tuesta</h3>
+
+                <!-- Descripción -->
+                <div class="descripcion">
+                    <p>Gerente General, Director de Distribución</p>
+                </div>
+            </div>
+
+            <div class="tarjet">
+                <!-- Fotos -->
+                <div class="foto">
+                    <img src={kevinImg} alt="kevin" />
+                </div>
+
+                <!-- Título -->
+                <h3 class="titulo">Kevin Isuiza Isuiza</h3>
+
+                <!-- Descripción -->
+                <div class="descripcion">
+                    <p>Recursos Humanos, Producción</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

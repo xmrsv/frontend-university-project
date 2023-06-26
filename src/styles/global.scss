@@ -12,3 +12,7 @@ body {
   font-family: typography.$logotype;
   overflow-x: hidden; // Evita el scroll horizontal, conocido como overflow
 }
+
+img, svg, video {
+  display: block;
+}

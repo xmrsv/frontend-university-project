@@ -1,5 +1,5 @@
 ---
-// assets
+// Assets
 import cartIcon from "../assets/cart-icon.svg";
 import menuIcon from "../assets/menu-icon.svg";
 ---
@@ -7,6 +7,7 @@ import menuIcon from "../assets/menu-icon.svg";
 <style lang="scss">
     @use "../styles/variables/colors";
     @use "../styles/variables/metrics";
+    @use "../styles/variables/typography";
 
     header {
         height: 80px;
@@ -25,20 +26,21 @@ import menuIcon from "../assets/menu-icon.svg";
 
                 a {
                     text-decoration: none;
-                    font-size: 2rem;
+                    font-size: typography.$size-1;
                     color: colors.$black;
                 }
             }
 
             .logo {
-                font-size: 24px;
+                font-size: typography.$size-3;
                 font-weight: 500;
                 text-decoration: none;
                 color: colors.$logotype;
             }
 
             nav {
-                font-size: 16px;
+                font-size: typography.$size-2;
+
                 ul {
                     display: flex;
                     list-style: none;
@@ -162,13 +164,13 @@ import menuIcon from "../assets/menu-icon.svg";
                     <a href="/ver-producto">Producto</a>
                 </li>
                 <li>
-                    <a href="#">Conocenos</a>
+                    <a href="/conocenos">Conocenos</a>
                 </li>
             </ul>
         </nav>
 
-        <div class="icons">
-            <a id="hamburguer-button" class="hamburguer-menu">
+        <ul class="icons">
+            <a id="hamburguer-button" class="hamburguer-menu" href="#">
                 <img src={menuIcon} alt="" />
                 <span id="hamburger-button-text">Menu</span>
             </a>
@@ -176,7 +178,7 @@ import menuIcon from "../assets/menu-icon.svg";
                 <img src={cartIcon} alt="" />
                 <span>Carrito</span>
             </a>
-        </div>
+        </ul>
     </div>
 </header>
 

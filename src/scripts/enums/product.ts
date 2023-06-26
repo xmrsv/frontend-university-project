@@ -1,4 +1,7 @@
+/**
+ * Enumerado de productos
+ */
 export enum Product {
-    price = 6,
-    name = 'Galleta sacha jergón'
+    PRICE = 6,
+    NAME = 'Galleta sacha jergón'
 }

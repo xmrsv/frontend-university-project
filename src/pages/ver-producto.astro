@@ -163,13 +163,13 @@ import Layout from "../layouts/Layout.astro";
 
         @media screen and (max-width: 1300px) {
             .container {
-                img {
-                    max-width: 100%;
-                }
-
                 grid-template-columns: 1fr 1fr;
                 grid-column-gap: 0;
                 grid-row-gap: 1rem;
+
+                img {
+                    max-width: 100%;
+                }
 
                 .text {
                     grid-column: 1 / 3;
@@ -267,17 +267,15 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <script>
-    // Modulos gracias a Typescript :D
-    import { addLocalStorage } from "../utils/localStorage.js";
+    // Importa solo la funcion addLocalStorage de localStorage.js
+    import { addLocalStorage } from "../scripts/utils/localStorage.js";
 
     // Declarativo debido a Typescript -_-'
     // HTMLInputElement y HTMLFormElement es un tipo de dato de Typescript, lo use debido a que daba errores al usar el método value y otros.
-    const modal: HTMLInputElement = document.getElementById(
-        "modal"
-    ) as HTMLInputElement;
-    const openModal: HTMLInputElement = document.getElementById(
+    const modal = document.getElementById("modal");
+    const openModal = document.getElementById(
         "open-modal"
-    ) as HTMLInputElement;
+    );
     const closeModal: HTMLInputElement = document.getElementById(
         "close-modal"
     ) as HTMLInputElement;

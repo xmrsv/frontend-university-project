@@ -113,6 +113,7 @@ import menuIcon from "../assets/menu-icon.svg";
 
                         li {
                             display: block;
+
                             a {
                                 display: block;
                                 padding: 0.8rem 1.6rem;
@@ -142,8 +143,6 @@ import menuIcon from "../assets/menu-icon.svg";
 
                 .icons {
                     justify-self: flex-end;
-                    .icon-cart {
-                    }
                 }
             }
         }
@@ -171,7 +170,7 @@ import menuIcon from "../assets/menu-icon.svg";
         <div class="icons">
             <a id="hamburguer-button" class="hamburguer-menu">
                 <img src={menuIcon} alt="" />
-                <span>Menu</span>
+                <span id="hamburger-button-text">Menu</span>
             </a>
             <a class="icon-cart" href="/carrito">
                 <img src={cartIcon} alt="" />
@@ -185,12 +184,16 @@ import menuIcon from "../assets/menu-icon.svg";
     const hamburguerButton = document.getElementById("hamburguer-button");
     const navigation = document.getElementById("navigation");
 
-    let hamburguerButtonText = hamburguerButton.querySelector("span");
+    let hamburguerText = document.getElementById("hamburger-button-text");
 
     hamburguerButton.addEventListener("click", () => {
-        hamburguerButtonText.textContent =
-            hamburguerButtonText.textContent === "Menu" ? "Cerrar" : "Menu";
+        if (hamburguerText.textContent === "Menu") {
+            hamburguerText.textContent = "Cerrar";
+            navigation.classList.add("visible");
+        } else {
+            hamburguerText.textContent = "Menu";
+            navigation.classList.remove("visible");
+        }
 
-        navigation.classList.toggle("visible");
     });
 </script>

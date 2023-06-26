@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^2.3.0",
-    "astro": "^2.6.4",
+    "astro": "^2.7.0",
     "sass": "^1.62.1"
   }
 }

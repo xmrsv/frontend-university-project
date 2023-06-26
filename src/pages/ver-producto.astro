@@ -273,28 +273,15 @@ import Layout from "../layouts/Layout.astro";
     // Declarativo debido a Typescript -_-'
     // HTMLInputElement y HTMLFormElement es un tipo de dato de Typescript, lo use debido a que daba errores al usar el método value y otros.
     const modal = document.getElementById("modal");
-    const openModal = document.getElementById(
-        "open-modal"
-    );
-    const closeModal: HTMLInputElement = document.getElementById(
-        "close-modal"
-    ) as HTMLInputElement;
-    const amount: HTMLInputElement = document.getElementById(
-        "amount"
-    ) as HTMLInputElement;
-    const amountSelected: HTMLInputElement = document.getElementById(
-        "amount-selected"
-    ) as HTMLInputElement;
-    const addToCart: HTMLInputElement = document.getElementById(
-        "add-to-cart"
-    ) as HTMLInputElement;
-    const form: HTMLFormElement = document.querySelector(
-        "form"
-    ) as HTMLFormElement;
-    const amountInput: HTMLInputElement = document.getElementById(
-        "amount"
-    ) as HTMLInputElement;
-    // De tipo entero, ya que no puede haber medio pedido, por ejemplo: 1.5 galletas, 2.5 galletas, etc. Ya me imagino a la gente pidiendo medio pedido de galletas...
+    const openModal = document.getElementById("open-modal");
+    const closeModal = document.getElementById("close-modal");
+    const amount = document.getElementById("amount");
+    const amountSelected = document.getElementById("amount-selected");
+    const addToCart = document.getElementById("add-to-cart");
+    const form = document.querySelector("form");
+    const amountInput = document.getElementById("amount") as HTMLInputElement;
+
+    // Precio de las galletas
     const price: number = 9.99;
 
     // Actualiza el total de galletas seleccionadas al cargar la página

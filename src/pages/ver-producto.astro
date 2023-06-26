@@ -279,7 +279,7 @@ import Layout from "../layouts/Layout.astro";
     // Actualiza el total de galletas seleccionadas al cargar la página
     // Orrendl el casting, pero es necesario debido a que Typescript no reconoce el método textContent
     amountSelected.textContent = String(
-        Number(amountInput.value) * Product.price
+        Number(amountInput.value) * Product.PRICE
     );
 
     // Previene que la página se recargue al enviar el formulario
@@ -310,7 +310,7 @@ import Layout from "../layouts/Layout.astro";
         // target.value es de tipo string, por lo que necesita ser convertido a número, pero tambien amountSelected.textContent es de tipo string, por lo que la operacion tiene que ser convertida a string: target.value -> number -> string.
         // Se multiplica la cantidad seleccionada por el precio para obtener el total.
         amountSelected.textContent = String(
-            Number(target.value) * Product.price
+            Number(target.value) * Product.PRICE
         );
     });
 
@@ -327,8 +327,8 @@ import Layout from "../layouts/Layout.astro";
         // addLocalStorage va dentro de un bucle que se repite segun cuantas galletas se hayan seleccionado el usuario
         for (let i = 0; i < amountValue; i++) {
             addLocalStorage("Carrito", {
-                name: Product.name,
-                price: Product.price,
+                name: Product.NAME,
+                price: Product.PRICE,
             });
         }
 

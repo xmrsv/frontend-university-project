@@ -8,7 +8,6 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Ver producto">
     <style lang="scss">
-        // Variables de estilos
         @use "../styles/variables/metrics";
         @use "../styles/variables/colors";
 
@@ -28,9 +27,8 @@ import Layout from "../layouts/Layout.astro";
 
             .text {
                 margin-block-end: 1rem;
-                .product-title {
-                    margin-bottom: 1rem;
-                }
+
+                .product-title { margin-bottom: 1rem }
 
                 .product-price-title {
                     font-size: 24px;
@@ -46,9 +44,7 @@ import Layout from "../layouts/Layout.astro";
                 .product-about-description {
                     margin-bottom: 2rem;
 
-                    p {
-                        margin-block-end: 1rem;
-                    }
+                    p { margin-block-end: 1rem }
                 }
 
                 .buttons {
@@ -66,9 +62,7 @@ import Layout from "../layouts/Layout.astro";
                         border-radius: 2rem;
                         transition: background-color 200ms ease-in-out;
 
-                        &:hover {
-                            background-color: #5f8f4f;
-                        }
+                        &:hover { background-color: #5f8f4f }
                     }
                 }
             }
@@ -85,9 +79,7 @@ import Layout from "../layouts/Layout.astro";
                     margin-block-end: 1.2rem;
                 }
 
-                .aside-buy-link {
-                    margin: auto;
-                }
+                .aside-buy-link { margin: auto }
             }
         }
 
@@ -129,9 +121,7 @@ import Layout from "../layouts/Layout.astro";
                     display: flex;
                     flex-direction: column;
 
-                    & > * {
-                        margin-bottom: 1rem;
-                    }
+                    & > * { margin-bottom: 1rem }
 
                     button {
                         border: none;
@@ -146,12 +136,12 @@ import Layout from "../layouts/Layout.astro";
                         transition: background-color 200ms ease-in-out;
                         margin-bottom: 0;
 
-                        &:hover {
-                            background-color: #5f8f4f;
-                        }
+                        &:hover { background-color: #5f8f4f }
                     }
                 }
             }
+
+            .add-to-cart { font-family: inherit }
         }
 
         input:focus,
@@ -175,17 +165,11 @@ import Layout from "../layouts/Layout.astro";
                 grid-column-gap: 0;
                 grid-row-gap: 1rem;
 
-                img {
-                    max-width: 100%;
-                }
+                img { max-width: 100% }
 
-                .text {
-                    grid-column: 1 / 3;
-                }
+                .text { grid-column: 1 / 3 }
 
-                aside {
-                    grid-column: 1 / 3;
-                }
+                aside {  grid-column: 1 / 3 }
             }
 
             .modal {
@@ -268,7 +252,7 @@ import Layout from "../layouts/Layout.astro";
                     value="1"
                 />
                 <p>Total: s/. <span id="amount-selected">0</span></p>
-                <button id="add-to-cart">Agregar</button>
+                <button class="add-to-cart" id="add-to-cart">Agregar</button>
             </form>
         </div>
     </div>
@@ -347,6 +331,9 @@ import Layout from "../layouts/Layout.astro";
                 price: Product.price,
             });
         }
+
+        // Evita que se agreguen mas productos mientras redirige
+        addToCart.setAttribute("disabled", "true");
 
         // Cambia el texto del boton a "¡Agregado!"
         addToCart.textContent = "¡Agregado!";

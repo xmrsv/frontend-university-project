@@ -40,7 +40,9 @@ import cartIcon from "../assets/cart-big.svg";
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
 
-                    &:hover { background-color: #5f8f4f }
+                    &:hover {
+                        background-color: #5f8f4f;
+                    }
                 }
 
                 .delete-products {
@@ -55,10 +57,14 @@ import cartIcon from "../assets/cart-big.svg";
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
 
-                    &:hover { background-color: #d61e43 }
+                    &:hover {
+                        background-color: #d61e43;
+                    }
                 }
 
-                .quantity-btn { cursor: pointer }
+                .quantity-btn {
+                    cursor: pointer;
+                }
             }
         }
 
@@ -81,8 +87,7 @@ import cartIcon from "../assets/cart-big.svg";
                 border-radius: 1rem;
                 background-color: hsl(0, 0%, 90%);
             }
-        }  
-        
+        }
     </style>
 
     <div class="container">
@@ -104,28 +109,21 @@ import cartIcon from "../assets/cart-big.svg";
     </div>
 
     <script>
-        import { sendWhatsapp } from "../utils/integrations.js";
-        import { getLocalStorage } from "../utils/localStorage.js";
+        import { sendWhatsapp } from "../scripts/utils/integrations.ts";
+        import { getLocalStorage } from "../scripts/utils/localStorage.ts";
+        import { Product } from "../scripts/enums/product.ts";
 
         const container = document.getElementById("container-products");
-        const botonPagar: HTMLButtonElement = document.getElementById(
+        const botonPagar = document.getElementById(
             "pagar"
         ) as HTMLButtonElement;
-        const addItem: HTMLButtonElement = document.getElementById(
-            "agregar"
-        ) as HTMLButtonElement;
-        const total: HTMLSpanElement = document.getElementById(
-            "total"
-        ) as HTMLSpanElement;
-        const price: HTMLInputElement = document.getElementById(
-            "price"
-        ) as HTMLInputElement;
-        const deleteProductos: HTMLButtonElement = document.getElementById(
+        const addItem = document.getElementById("agregar") as HTMLButtonElement;
+        const total = document.getElementById("total") as HTMLSpanElement;
+        const price = document.getElementById("price") as HTMLInputElement;
+        const deleteProductos = document.getElementById(
             "delete-productos"
         ) as HTMLButtonElement;
-        let prices: HTMLInputElement = document.getElementById(
-            "price"
-        ) as HTMLInputElement;
+        let prices = document.getElementById("price") as HTMLInputElement;
 
         let totalValue: number = 0;
         let totalAmount: number = 0;
@@ -191,9 +189,9 @@ import cartIcon from "../assets/cart-big.svg";
                             <span>
                                 <h2>${cartItem[0].name}</h2>
                                 <p>Cantidad: ${totalAmount}</p>
-                                <p>Total: ${(totalAmount * 9.99).toFixed(
-                                    2
-                                )} soles</p>
+                                <p>Total: ${(
+                                    totalAmount * Product.price
+                                ).toFixed(2)} soles</p>
                             </span>
                         </div>
             `;

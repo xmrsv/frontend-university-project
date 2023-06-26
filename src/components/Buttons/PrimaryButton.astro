@@ -1,10 +1,11 @@
 ---
 interface Props {
-    link?: string;
+    href?: string;
     className?: string;
+    class?: string;
 }
 
-const { link, className } = Astro.props;
+const { href: link, class: className } = Astro.props;
 ---
 
 <style lang="scss">
@@ -22,7 +23,7 @@ const { link, className } = Astro.props;
     }
 </style>
 
-<a href={"" + link} class:list={className}>
+<a href={link} class={className}>
     <slot />
 </a>
 

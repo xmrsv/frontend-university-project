@@ -5,9 +5,8 @@ interface Props {
     imageUrl: string;
 }
 
-const { name, amount, imageUrl } = Astro.props;
+const { name, amount, imageUrl } = Astro.props; 
 ---
-
 <style lang="scss">
     .cart {
         div {
@@ -17,11 +16,9 @@ const { name, amount, imageUrl } = Astro.props;
             border: 0.1rem solid hsl(0, 0%, 60%);
             max-width: fit-content;
             padding: 1rem 3rem;
-
-            img {
-                max-width: 100px;
-            }
-
+    
+            img { max-width: 100px }
+    
             span {
                 display: flex;
                 flex-direction: column;

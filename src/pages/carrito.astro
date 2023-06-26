@@ -24,35 +24,6 @@ import cartIcon from "../assets/cart-big.svg";
                 }
             }
 
-            .tabla {
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    border: 4px solid #d9f0dd;
-
-                    thead {
-                        background-color: #d9f0dd;
-                        color: #2d2d2d;
-                        font-weight: 800;
-                    }
-                    th,
-                    td {
-                        padding: 1rem;
-                        text-align: center;
-                    }
-
-                    tfoot {
-                        background-color: #d9f0dd;
-                        color: #2d2d2d;
-                        font-weight: 800;
-                    }
-                }
-
-                td {
-                    padding: 2rem;
-                }
-            }
-
             .buttons {
                 margin: 2rem 0;
                 display: flex;
@@ -69,9 +40,7 @@ import cartIcon from "../assets/cart-big.svg";
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
 
-                    &:hover {
-                        background-color: #5f8f4f;
-                    }
+                    &:hover { background-color: #5f8f4f }
                 }
 
                 .delete-products {
@@ -86,14 +55,10 @@ import cartIcon from "../assets/cart-big.svg";
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
 
-                    &:hover {
-                        background-color: #d61e43;
-                    }
+                    &:hover { background-color: #d61e43 }
                 }
 
-                .quantity-btn {
-                    cursor: pointer;
-                }
+                .quantity-btn { cursor: pointer }
             }
         }
 
@@ -116,14 +81,8 @@ import cartIcon from "../assets/cart-big.svg";
                 border-radius: 1rem;
                 background-color: hsl(0, 0%, 90%);
             }
-        }
-
-        @media screen and (max-width: 768px) {
-            .container {
-                .buttons {
-                }
-            }
-        }
+        }  
+        
     </style>
 
     <div class="container">
@@ -145,8 +104,8 @@ import cartIcon from "../assets/cart-big.svg";
     </div>
 
     <script>
-        import { sendWhatsapp } from "../lib/integrations.js";
-        import { getLocalStorage } from "../lib/localStorage.js";
+        import { sendWhatsapp } from "../utils/integrations.js";
+        import { getLocalStorage } from "../utils/localStorage.js";
 
         const container = document.getElementById("container-products");
         const botonPagar: HTMLButtonElement = document.getElementById(
@@ -168,7 +127,6 @@ import cartIcon from "../assets/cart-big.svg";
             "price"
         ) as HTMLInputElement;
 
-        const priceProduct: number = 6;
         let totalValue: number = 0;
         let totalAmount: number = 0;
         const whatsappNumber: string = "51935463517";
@@ -183,7 +141,6 @@ import cartIcon from "../assets/cart-big.svg";
 
             try {
                 container.innerHTML = `
-
                         <style>
                             .cart {
                                 display: flex;
@@ -234,9 +191,9 @@ import cartIcon from "../assets/cart-big.svg";
                             <span>
                                 <h2>${cartItem[0].name}</h2>
                                 <p>Cantidad: ${totalAmount}</p>
-                                <p>Total: ${(
-                                    totalAmount * priceProduct
-                                ).toFixed(2)} soles</p>
+                                <p>Total: ${(totalAmount * 9.99).toFixed(
+                                    2
+                                )} soles</p>
                             </span>
                         </div>
             `;
@@ -270,7 +227,7 @@ import cartIcon from "../assets/cart-big.svg";
 
                 sendWhatsapp(
                     whatsappNumber,
-                    `Hola, quisiera comprar "${cartItem[0].name}" x ${totalAmount}, total: ${totalValue} soles`
+                    `Hola, quisiera comprar ${cartItem[0].name} x ${totalAmount} total: ${totalValue} soles`
                 );
             } catch (e) {
                 console.log(e);

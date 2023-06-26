@@ -315,25 +315,24 @@ import Layout from "../layouts/Layout.astro";
 
     // Cierra el modal al hacer click fuera de el
     window.addEventListener("click", (e: Event) => {
-        if (e.target === modal) {
-            modal.classList.remove("visible");
-        }
+        if (e.target === modal) modal.classList.remove("visible");
     });
 
     // Actualiza el total de galletas seleccionadas
     amount.addEventListener("input", (e: Event) => {
         // necesita ser tratado como HTMLInputElement para evitar errores de Typescript
         const target: HTMLInputElement = e.target as HTMLInputElement;
+
         // target.value es de tipo string, por lo que necesita ser convertido a número, pero tambien amountSelected.textContent es de tipo string, por lo que la operacion tiene que ser convertida a string: target.value -> number -> string.
+        // Se multiplica la cantidad seleccionada por el precio para obtener el total.
         amountSelected.textContent = String(
             Number(target.value) * priceProduct
         );
-
-        console.log(amountSelected.innerText);
     });
 
     // Agrega el producto al carrito
     form.addEventListener("submit", (e) => {
+        // Evita que el formulario recargue la página
         e.preventDefault();
 
         const amountValue: number = parseInt(amountInput.value);
@@ -352,10 +351,11 @@ import Layout from "../layouts/Layout.astro";
         // Cambia el texto del boton a "¡Agregado!"
         addToCart.textContent = "¡Agregado!";
 
-        // Después de 3 segundos,
+        // Despues de 3 segundos ...
         setTimeout(() => {
             // Cierra el modal
             modal.classList.remove("visible");
+
             // Redirige a /carrito
             window.location.href = "/carrito";
         }, 3000);

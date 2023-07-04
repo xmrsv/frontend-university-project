@@ -13,7 +13,8 @@
   "dependencies": {
     "@astrojs/netlify": "^2.3.0",
     "astro": "^2.7.0",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "semver": ">=7.5.3"

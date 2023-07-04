@@ -1,0 +1,74 @@
+---
+import BasicCleanedLayout from "../../layouts/BasicCleanedLayout.astro";
+---
+
+<BasicCleanedLayout>
+    <style lang="scss">
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #logoutButton {
+            cursor: pointer;
+            display: block;
+            padding: 0.8rem;
+            background-color: hsl(0, 0%, 90%);
+            max-width: fit-content;
+
+            &:hover {
+                background-color: hsl(0, 0%, 80%);
+            }
+        }
+    </style>
+    <div class="container">
+        <span id="logoutButton">Cerrar sesión</span>
+        <h1>¡Bienvenido devuelta <span id="userText">user</span>!</h1>
+        <p>
+            username: <span id="usernameText">username</span>
+            <br />
+            password: <span id="passwordText">password</span>
+            <br />
+            admin? <span id="adminText">admin</span>
+        </p>
+    </div>
+    <script>
+        let users = JSON.parse(localStorage.getItem("users"));
+        let isActive = false;
+
+        // Busca si hay una sesión activa
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].sessionActive === true) {
+                document.getElementById("userText").innerHTML =
+                    users[i].username;
+                document.getElementById("usernameText").innerHTML =
+                    users[i].username;
+                document.getElementById("passwordText").innerHTML =
+                    users[i].password;
+                document.getElementById("adminText").innerHTML =
+                    users[i].isAdmin;
+                console.log(users[i].username);
+                isActive = true;
+            }
+        }
+
+        // Eventos del boton de cerrar sesión
+        document
+            .getElementById("logoutButton")
+            .addEventListener("click", () => {
+                for (let i = 0; i < users.length; i++) {
+                    if (users[i].sessionActive === true) {
+                        users[i].sessionActive = false;
+                        localStorage.setItem("users", JSON.stringify(users));
+                        window.location.href = "/account";
+                    }
+                }
+            });
+
+        // Sin sesión activa redirige a la página de inicio de sesión
+        if (isActive === false) {
+            window.location.href = "/account";
+        }
+    </script>
+</BasicCleanedLayout>

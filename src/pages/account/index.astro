@@ -1,0 +1,64 @@
+---
+import BasicCleanedLayout from "../../layouts/BasicCleanedLayout.astro";
+---
+
+<BasicCleanedLayout title="Cuentas - Sachamama">
+    <style lang="scss">
+        .blurred {
+            width: 100dvw;
+            height: 100dvh;
+            display: grid;
+            place-items: center;
+            backdrop-filter: blur(20px);
+        }
+
+        .container {
+            width: 100dvw;
+            height: 100dvh;
+            background-image: url("/rio_amazonas.jpg");
+            background-position: center;
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+
+            .wrapper {
+                max-width: 80ch;
+                background-color: hsla(0, 0%, 100%, 0.8);
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+
+                h1 {
+                    margin-block-end: 1rem;
+                }
+
+                p {
+                    margin-block-end: 1rem;
+                }
+
+                a {
+                    display: block;
+                    text-decoration: none;
+                    color: inherit;
+                    background-color: hsl(0, 0%, 100%);
+                    height: fit-content;
+                    padding: 1rem 2rem;
+                }
+                .buttons {
+                    display: flex;
+                    gap: 2rem;
+                }
+            }
+        }
+    </style>
+
+    <div class="container">
+        <div class="blurred">
+            <div class="wrapper">
+                <h1>Acceder a tu cuenta</h1>
+                <p>Necesitas autenticarte para proceder.</p>
+                <a href="/account/auth">Autenticarme</a>
+                <a href="/">Regresar a inicio</a>
+            </div>
+        </div>
+    </div>
+</BasicCleanedLayout>

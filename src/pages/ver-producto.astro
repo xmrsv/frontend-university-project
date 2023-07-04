@@ -53,6 +53,7 @@ import Layout from "../layouts/Layout.astro";
                     gap: 1rem;
 
                     .add-button {
+                        cursor: pointer;
                         display: block;
                         text-decoration: none;
                         color: #fff;
@@ -123,11 +124,13 @@ import Layout from "../layouts/Layout.astro";
 
                     & > * { margin-bottom: 1rem }
 
-                    button {
+                    .add-to-cart {
+                        cursor: pointer;
                         border: none;
                         display: block;
                         text-decoration: none;
                         color: #fff;
+                        font-family: inherit;
                         font-weight: 800;
                         font-size: inherit;
                         padding: 1rem 2rem;
@@ -140,8 +143,6 @@ import Layout from "../layouts/Layout.astro";
                     }
                 }
             }
-
-            .add-to-cart { font-family: inherit }
         }
 
         input:focus,
@@ -157,6 +158,11 @@ import Layout from "../layouts/Layout.astro";
             font-family: inherit;
             font-size: 1.2rem;
             background-color: hsl(0, 0%, 90%);
+            transition: all 200ms ease-in-out;
+
+            &:focus {
+                border-bottom: 0.2rem solid colors.$logotype;
+            }
         }
 
         @media screen and (max-width: 1300px) {
@@ -251,7 +257,7 @@ import Layout from "../layouts/Layout.astro";
                     max="10"
                     value="1"
                 />
-                <p>Total: s/. <span id="amount-selected">0</span></p>
+                <p>Total: <span id="amount-selected">0</span> soles</p>
                 <button class="add-to-cart" id="add-to-cart">Agregar</button>
             </form>
         </div>
@@ -283,7 +289,7 @@ import Layout from "../layouts/Layout.astro";
     );
 
     // Previene que la página se recargue al enviar el formulario
-    form.addEventListener("submit", (e: Event) => {
+    form.addEventListener("submit", (e) => {
         e.preventDefault();
     });
 
@@ -298,14 +304,13 @@ import Layout from "../layouts/Layout.astro";
     });
 
     // Cierra el modal al hacer click fuera de el
-    window.addEventListener("click", (e: Event) => {
+    window.addEventListener("click", (e) => {
         if (e.target === modal) modal.classList.remove("visible");
     });
 
     // Actualiza el total de galletas seleccionadas
-    amount.addEventListener("input", (e: Event) => {
-        // necesita ser tratado como HTMLInputElement para evitar errores de Typescript
-        const target: HTMLInputElement = e.target as HTMLInputElement;
+    amount.addEventListener("input", (e) => {
+        const target = e.target as HTMLInputElement;
 
         // target.value es de tipo string, por lo que necesita ser convertido a número, pero tambien amountSelected.textContent es de tipo string, por lo que la operacion tiene que ser convertida a string: target.value -> number -> string.
         // Se multiplica la cantidad seleccionada por el precio para obtener el total.

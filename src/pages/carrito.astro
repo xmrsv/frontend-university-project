@@ -29,6 +29,8 @@ import cartIcon from "../assets/cart-big.svg";
                 display: flex;
                 justify-content: center;
 
+                & > * { cursor: pointer }
+
                 .check-out {
                     height: fit-content;
                     display: block;
@@ -40,31 +42,22 @@ import cartIcon from "../assets/cart-big.svg";
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
 
-                    &:hover {
-                        background-color: #5f8f4f;
-                    }
+                    &:hover { background-color: #5f8f4f }
                 }
 
                 .delete-products {
                     height: fit-content;
                     display: block;
                     text-decoration: none;
-                    color: #fff;
+                    color: #f2224c;
                     font-weight: 800;
                     padding: 1rem 2rem;
                     margin-right: 1rem;
-                    background-color: #f2224c;
                     border-radius: 2rem;
                     transition: background-color 200ms ease-in-out;
-
-                    &:hover {
-                        background-color: #d61e43;
-                    }
                 }
 
-                .quantity-btn {
-                    cursor: pointer;
-                }
+                .quantity-btn { cursor: pointer }
             }
         }
 
@@ -114,15 +107,12 @@ import cartIcon from "../assets/cart-big.svg";
         import { Product } from "../scripts/enums/product.ts";
 
         const container = document.getElementById("container-products");
-        const botonPagar = document.getElementById(
-            "pagar"
-        );
+        const botonPagar = document.getElementById("pagar");
         const addItem = document.getElementById("agregar");
         const total = document.getElementById("total");
         const price = document.getElementById("price") as HTMLInputElement;
-        const deleteProductos = document.getElementById(
-            "delete-productos"
-        );
+        const deleteProductos = document.getElementById("delete-productos");
+
         let prices = document.getElementById("price") as HTMLInputElement;
 
         let totalValue: number = 0;
@@ -130,7 +120,7 @@ import cartIcon from "../assets/cart-big.svg";
         const whatsappNumber: string = "51935463517";
 
         // Obtiene los items del carrito de compras del localstorage
-        const cartItem: Object = getLocalStorage("Carrito");
+        const cartItem = getLocalStorage("Carrito");
 
         if (cartItem) {
             cartItem.forEach((item) => {
@@ -190,7 +180,7 @@ import cartIcon from "../assets/cart-big.svg";
                                 <h2>${cartItem[0].name}</h2>
                                 <p>Cantidad: ${totalAmount}</p>
                                 <p>Total: ${(
-                                    totalAmount * Product.price
+                                    totalAmount * Product.PRICE
                                 ).toFixed(2)} soles</p>
                             </span>
                         </div>
@@ -211,7 +201,7 @@ import cartIcon from "../assets/cart-big.svg";
             location.reload();
 
             try {
-                total.textContent = `s/. ${totalValue}`;
+                total.textContent = `${totalValue} soles`;
             } catch (e) {
                 console.log(e);
             }
@@ -219,18 +209,16 @@ import cartIcon from "../assets/cart-big.svg";
 
         // Envia un mensaje de whatsapp con los productos del carrito de compras, al hacer click en el boton pagar
         botonPagar.addEventListener("click", () => {
-            try {
-                // Solo deja dos decimales a totalValue
-                totalValue = totalValue.toFixed(2);
 
-                sendWhatsapp(
-                    whatsappNumber,
-                    `Hola, quisiera comprar ${cartItem[0].name} x ${totalAmount} total: ${totalValue} soles`
-                );
-            } catch (e) {
-                console.log(e);
-                alert("No se pudo proceder");
+            if (cartItem[0] === null || cartItem[0] === undefined) {
+                return alert("No hay productos en el carrito")
             }
+
+            totalValue = totalValue.toFixed(2);
+            sendWhatsapp(
+                whatsappNumber,
+                `Hola, quisiera comprar ${cartItem[0].name} x ${totalAmount} total: ${totalValue} soles`
+            );
         });
     </script>
 </Layout>

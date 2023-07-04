@@ -1,0 +1,142 @@
+---
+import BasicCleanedLayout from "../../layouts/BasicCleanedLayout.astro";
+---
+
+<BasicCleanedLayout title="Autenticarse">
+    <style lang="scss">
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .container {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: fit-content;
+            background-color: hsl(0, 0%, 90%);
+            padding: 2rem;
+            margin-bottom: 2rem;
+
+            input, button {
+                padding: 0.2rem;
+            }
+
+            & > * {
+                margin-bottom: 1rem;
+            }
+            & > *:last-child {
+                margin: 0;
+            }
+
+        }
+    </style>
+    <div class="wrapper">
+        <header>
+            <h1>Authentication</h1>
+            
+            <a href="/account/user">Panel de control</a>
+            <a href="/">Inicio</a>
+        </header>
+        <form id="register" method="POST">
+            <h2>Registrarse</h2>
+            <label for="username"> Usuario</label>
+            <input type="text" name="username" required />
+            <label for="password"> Contraseña</label>
+            <input type="password" name="password" required />
+            <label>
+                Administrador
+                <input type="checkbox" name="isAdmin" />
+            </label>
+            <button>Registrar</button>
+        </form>
+
+        <form id="login" method="POST">
+            <h2>Iniciar sesión</h2>
+            <label for="username">Usuario</label>
+            <input type="text" name="username" required />
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" required />
+            <button>Iniciar sesión</button>
+        </form>
+    </div>
+</BasicCleanedLayout>
+
+<script>
+    import { createUser } from "../../scripts/utils/auth.ts";
+
+    const registerForm = document.getElementById("register") as HTMLFormElement;
+    const loginForm = document.getElementById("login") as HTMLFormElement;
+
+    registerForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(registerForm);
+        const username = formData.get("username") as string;
+        const password = formData.get("password") as string;
+        const isAdmin = formData.get("isAdmin") === "on" ? true : false;
+
+        createUser(username, password, isAdmin);
+
+        alert("User created!");
+
+        registerForm.reset();
+    });
+
+    loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(loginForm);
+        const username = formData.get("username");
+        const password = formData.get("password");
+
+        // Login
+        let users = JSON.parse(localStorage.getItem("users"));
+        let userFound = false;
+
+        for (let i = 0; i < users.length && !userFound; i++) {
+            if (
+                (users[i].username === username &&
+                users[i].password === password) && (
+                    users[i].sessionActive === false)
+            ) {
+                console.log(
+                    `User found! \index ${i}\nid ${users[i].id}\nusername ${users[i].username}\npassword ${users[i].password}\nsessionActive: ${users[i].sessionActive}`
+                );
+                console.log("Updating values...");
+
+                let usersCopy = [...users];
+
+                usersCopy[i].sessionActive = true;
+
+                localStorage.setItem("users", JSON.stringify(usersCopy));
+
+                userFound = true;
+                console.log("Updated values");
+
+            } else {
+                console.log("User not found!");
+            }
+        }
+
+        if (userFound) {
+            alert("Se inició sesión correctamente");
+        } else {
+            alert("No se pudo iniciar sesión");
+        }
+
+        loginForm.reset();
+    });
+</script>
